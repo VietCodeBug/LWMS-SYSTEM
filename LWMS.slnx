@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LWMS.API/LWMS.API.csproj" />
+    <Project Path="src/LWMS.Application/LWMS.Application.csproj" />
+    <Project Path="src/LWMS.Domain/LWMS.Domain.csproj" />
+    <Project Path="src/LWMS.Infrastructure/LWMS.Infrastructure.csproj" />
+    <Project Path="src/LWMS.Tests/LWMS.Tests.csproj" />
+  </Folder>
+</Solution>

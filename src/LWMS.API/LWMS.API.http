@@ -1,0 +1,6 @@
+@LWMS.API_HostAddress = http://localhost:5166
+
+GET {{LWMS.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
