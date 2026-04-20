@@ -8,6 +8,7 @@ using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi;
 using Serilog;
 using System.Text;
+using LWMS.Domain.Services;
 
 // ──────────────────────────────────────────────
 // 1. BOOTSTRAP LOGGER (khởi động sớm để log lỗi startup)

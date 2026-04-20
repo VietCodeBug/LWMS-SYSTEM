@@ -1,0 +1,37 @@
+2026-04-20 11:18:31.693 +07:00 [INF] User profile is available. Using 'C:\Users\Ian_Pham\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-20 11:18:31.882 +07:00 [INF] Now listening on: http://localhost:5166
+2026-04-20 11:18:31.883 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-20 11:18:31.884 +07:00 [INF] Hosting environment: Development
+2026-04-20 11:18:31.885 +07:00 [INF] Content root path: D:\Ark_1\lwms-system\src\LWMS.API
+2026-04-20 11:18:36.586 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/test-code - null null
+2026-04-20 11:18:36.733 +07:00 [INF] Executing endpoint 'HTTP: GET /test-code'
+2026-04-20 11:18:36.750 +07:00 [INF] Executed endpoint 'HTTP: GET /test-code'
+2026-04-20 11:18:36.753 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/test-code - 200 null text/plain; charset=utf-8 168.6293ms
+2026-04-20 11:18:37.751 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/favicon.ico - null null
+2026-04-20 11:18:37.756 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/favicon.ico - 404 0 null 5.8905ms
+2026-04-20 11:18:37.761 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5166/favicon.ico, Response status code: 404
+2026-04-20 11:18:45.928 +07:00 [INF] Application is shutting down...
+2026-04-20 11:28:04.387 +07:00 [INF] User profile is available. Using 'C:\Users\Ian_Pham\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-20 11:28:04.535 +07:00 [INF] Now listening on: http://localhost:5166
+2026-04-20 11:28:04.537 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-20 11:28:04.538 +07:00 [INF] Hosting environment: Development
+2026-04-20 11:28:04.538 +07:00 [INF] Content root path: D:\Ark_1\lwms-system\src\LWMS.API
+2026-04-20 11:28:11.514 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/test-fee - null null
+2026-04-20 11:28:11.578 +07:00 [INF] Executing endpoint 'HTTP: GET /test-fee'
+2026-04-20 11:28:11.589 +07:00 [INF] Executed endpoint 'HTTP: GET /test-fee'
+2026-04-20 11:28:11.591 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/test-fee - 200 null application/json; charset=utf-8 78.8603ms
+2026-04-20 11:28:24.226 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/test-fee - null null
+2026-04-20 11:28:24.230 +07:00 [INF] Executing endpoint 'HTTP: GET /test-fee'
+2026-04-20 11:28:24.231 +07:00 [INF] Executed endpoint 'HTTP: GET /test-fee'
+2026-04-20 11:28:24.233 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/test-fee - 200 null application/json; charset=utf-8 7.522ms
+2026-04-20 11:36:50.750 +07:00 [INF] Application is shutting down...
+2026-04-20 11:56:51.027 +07:00 [INF] User profile is available. Using 'C:\Users\Ian_Pham\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-20 11:56:51.221 +07:00 [INF] Now listening on: http://localhost:5166
+2026-04-20 11:56:51.223 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-20 11:56:51.224 +07:00 [INF] Hosting environment: Development
+2026-04-20 11:56:51.225 +07:00 [INF] Content root path: D:\Ark_1\lwms-system\src\LWMS.API
+2026-04-20 11:56:51.374 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/test-sla - null null
+2026-04-20 11:56:51.509 +07:00 [INF] Executing endpoint 'HTTP: GET /test-sla'
+2026-04-20 11:56:51.532 +07:00 [INF] Executed endpoint 'HTTP: GET /test-sla'
+2026-04-20 11:56:51.534 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/test-sla - 200 null application/json; charset=utf-8 161.439ms
+2026-04-20 11:57:06.903 +07:00 [INF] Application is shutting down...

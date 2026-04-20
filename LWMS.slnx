@@ -6,4 +6,7 @@
     <Project Path="src/LWMS.Infrastructure/LWMS.Infrastructure.csproj" />
     <Project Path="src/LWMS.Tests/LWMS.Tests.csproj" />
   </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LWMS.Domain.UnitTests/LWMS.Domain.UnitTests.csproj" />
+  </Folder>
 </Solution>
