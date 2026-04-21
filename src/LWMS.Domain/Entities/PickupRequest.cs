@@ -1,7 +1,7 @@
 using LWMS.Domain.Common;
 
 namespace LWMS.Domain.Entities;
-public class PickupRequest : BaseEntity
+public class PickupRequest : BaseEntity, IMustHaveMerchant
 {
     public Guid MerchantId { get; set; }
     public string Address { get; set; } = string.Empty;

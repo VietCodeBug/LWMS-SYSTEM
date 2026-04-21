@@ -2,25 +2,29 @@ using LWMS.Domain.Common;
 
 namespace LWMS.Domain.Entities;
 
-public class CodSettlement : BaseEntity
+/// <summary>
+/// 💳 COD SETTLEMENT — Quyết toán tiền COD giữa Shipper → Hub → Merchant.
+/// Mỗi Settlement chứa nhiều CodSettlementItem (từng đơn hàng).
+/// </summary>
+public class CodSettlement : BaseEntity, IMustHaveMerchant
 {
+    /// <summary>Merchant nhận tiền quyết toán</summary>
     public Guid MerchantId { get; set; }
 
+    /// <summary>Shipper đã thu tiền từ khách</summary>
     public Guid ShipperId { get; set; }
 
-    public List<Guid> ParcelIds { get; set; } = new();
+    /// <summary>Tổng tiền shipper thu từ khách</summary>
+    public decimal TotalCollected { get; set; }
 
-    public decimal TotalCollected { get; set; } 
-    // tổng tiền shipper thu từ khách
+    /// <summary>Tiền shipper đã nộp về Hub</summary>
+    public decimal TotalSubmitted { get; set; }
 
-    public decimal TotalSubmitted { get; set; } 
-    // tiền shipper đã nộp về
+    /// <summary>Tiền đã chuyển cho merchant</summary>
+    public decimal TotalSettled { get; set; }
 
-    public decimal TotalSettled { get; set; } 
-    // tiền đã chuyển cho merchant
-
+    /// <summary>Trạng thái: PENDING / COMPLETED / FAILED</summary>
     public string Status { get; set; } = "PENDING";
-    // PENDING / COMPLETED / FAILED
 
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 

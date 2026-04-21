@@ -9,6 +9,8 @@ using Microsoft.OpenApi;
 using Serilog;
 using System.Text;
 using LWMS.Domain.Services;
+using LWMS.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 // ──────────────────────────────────────────────
 // 1. BOOTSTRAP LOGGER (khởi động sớm để log lỗi startup)
@@ -64,6 +66,12 @@ builder.Services.AddAuthorization();
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
 
+// Auth Services
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<LWMS.Application.Common.Interfaces.ICurrentUserService, LWMS.API.Services.CurrentUserService>();
+
+builder.Services.AddDbContext<AppDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 // ──────────────────────────────────────────────
 // 5. SWAGGER / OPENAPI
 // ──────────────────────────────────────────────
@@ -106,6 +114,5 @@ app.UseAuthorization();
 // 8. MAP ENDPOINTS (tách ra từng file)
 // ──────────────────────────────────────────────
 app.MapAuthEndpoints();
-app.MapProductEndpoints();
 
 app.Run();

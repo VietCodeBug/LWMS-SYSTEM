@@ -4,38 +4,35 @@ using LWMS.Domain.Enums;
 namespace LWMS.Domain.Entities;
 
 /// <summary>
-/// Thực thể quản lý đơn hàng hoàn trả (Return Order).
-/// Xảy ra khi Parcel không thể giao thành công hoặc Merchant yêu cầu trả hàng.
+/// 🔄 RETURN ORDER — Đơn hoàn trả khi giao thất bại hoặc Merchant yêu cầu.
+/// Lifecycle: PENDING → IN_TRANSIT → RETURNED_TO_MERCHANT / DESTROYED.
 /// </summary>
 public class ReturnOrder : BaseEntity
 {
-    /// <summary>
-    /// Tham chiếu đến bưu kiện gốc.
-    /// </summary>
+    /// <summary>Tham chiếu đến bưu kiện gốc</summary>
     public Guid ParcelId { get; set; }
 
-    /// <summary>
-    /// Mã vận đơn của đơn hoàn (thường bắt đầu bằng chữ R hoặc mã gốc + suffix).
-    /// </summary>
+    /// <summary>Mã vận đơn đơn hoàn (prefix R + mã gốc)</summary>
     public string ReturnTrackingCode { get; set; } = string.Empty;
 
-    /// <summary>
-    /// Lý do hoàn trả (Lấy từ Enum ReturnReason).
-    /// </summary>
+    /// <summary>Lý do hoàn trả</summary>
     public ReturnReason Reason { get; set; }
 
-    /// <summary>
-    /// Ghi chú chi tiết về tình trạng hàng khi hoàn.
-    /// </summary>
+    /// <summary>Ghi chú chi tiết</summary>
     public string Notes { get; set; } = string.Empty;
 
-    /// <summary>
-    /// ID nhân viên/shipper yêu cầu tạo đơn hoàn.
-    /// </summary>
+    /// <summary>Người yêu cầu tạo đơn hoàn (Shipper/Staff)</summary>
     public Guid RequestedById { get; set; }
 
-    /// <summary>
-    /// Trạng thái của đơn hoàn (Pending, InTransit, ReturnedToMerchant).
-    /// </summary>
+    /// <summary>Người duyệt đơn hoàn (Manager/Admin)</summary>
+    public Guid? ApprovedBy { get; set; }
+
+    /// <summary>Hub trả hàng về (thường = OriginHub của Parcel)</summary>
+    public Guid? ReturnHubId { get; set; }
+
+    /// <summary>Kiểu hoàn: TO_SENDER (trả merchant) / DESTROY (hủy)</summary>
+    public string ReturnType { get; set; } = "TO_SENDER";
+
+    /// <summary>Trạng thái: PENDING / IN_TRANSIT / RETURNED / DESTROYED</summary>
     public string Status { get; set; } = "PENDING";
 }

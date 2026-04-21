@@ -1,8 +1,8 @@
 namespace LWMS.Domain.Enums;
 public enum BagStatus
 {
-    Created,
-    Packed,
+    Open,
+    Sealed,
     InTransit,
     Arrived,
     Opened,

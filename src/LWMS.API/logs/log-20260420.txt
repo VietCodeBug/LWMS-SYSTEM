@@ -35,3 +35,203 @@
 2026-04-20 11:56:51.532 +07:00 [INF] Executed endpoint 'HTTP: GET /test-sla'
 2026-04-20 11:56:51.534 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/test-sla - 200 null application/json; charset=utf-8 161.439ms
 2026-04-20 11:57:06.903 +07:00 [INF] Application is shutting down...
+2026-04-20 16:41:27.377 +07:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'CodRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:41:27.403 +07:00 [WRN] No store type was specified for the decimal property 'TotalCollected' on entity type 'CodSettlement'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:41:27.403 +07:00 [WRN] No store type was specified for the decimal property 'TotalSettled' on entity type 'CodSettlement'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:41:27.403 +07:00 [WRN] No store type was specified for the decimal property 'TotalSubmitted' on entity type 'CodSettlement'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:41:27.403 +07:00 [WRN] No store type was specified for the decimal property 'MaxWeight' on entity type 'FeeConfig'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:41:27.403 +07:00 [WRN] No store type was specified for the decimal property 'MinWeight' on entity type 'FeeConfig'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:41:27.403 +07:00 [WRN] No store type was specified for the decimal property 'Weight' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:41:27.404 +07:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:41:27.404 +07:00 [WRN] No store type was specified for the decimal property 'BaseFee' on entity type 'ServiceType'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:49:21.106 +07:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'CodRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:49:21.141 +07:00 [WRN] No store type was specified for the decimal property 'TotalCollected' on entity type 'CodSettlement'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:49:21.142 +07:00 [WRN] No store type was specified for the decimal property 'TotalSettled' on entity type 'CodSettlement'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:49:21.143 +07:00 [WRN] No store type was specified for the decimal property 'TotalSubmitted' on entity type 'CodSettlement'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:49:21.144 +07:00 [WRN] No store type was specified for the decimal property 'MaxWeight' on entity type 'FeeConfig'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:49:21.145 +07:00 [WRN] No store type was specified for the decimal property 'MinWeight' on entity type 'FeeConfig'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:49:21.146 +07:00 [WRN] No store type was specified for the decimal property 'Weight' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:49:21.147 +07:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:49:21.148 +07:00 [WRN] No store type was specified for the decimal property 'BaseFee' on entity type 'ServiceType'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:49:21.644 +07:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-04-20 16:49:21.653 +07:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-04-20 16:49:21.681 +07:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-04-20 16:49:21.749 +07:00 [INF] Executed DbCommand (21ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-04-20 16:49:21.756 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-04-20 16:49:21.759 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-04-20 16:49:21.772 +07:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-04-20 16:49:21.779 +07:00 [INF] Applying migration '20260420094127_InitialCreate'.
+2026-04-20 16:49:21.826 +07:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [audit_logs] (
+    [Id] uniqueidentifier NOT NULL,
+    [ActorId] uniqueidentifier NOT NULL,
+    [ActorRole] nvarchar(max) NOT NULL,
+    [Action] nvarchar(50) NOT NULL,
+    [EntityType] nvarchar(100) NOT NULL,
+    [EntityId] uniqueidentifier NOT NULL,
+    [Changes] nvarchar(max) NULL,
+    [IpAddress] nvarchar(max) NULL,
+    [CreatedTime] datetime2 NOT NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [UpdatedAt] datetime2 NULL,
+    CONSTRAINT [PK_audit_logs] PRIMARY KEY ([Id])
+);
+2026-04-20 16:49:21.832 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [bags] (
+    [Id] uniqueidentifier NOT NULL,
+    [BagCode] nvarchar(max) NOT NULL,
+    [FromHubId] uniqueidentifier NOT NULL,
+    [ToHubId] uniqueidentifier NOT NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [Status] nvarchar(max) NOT NULL,
+    [UpdatedAt] datetime2 NULL,
+    CONSTRAINT [PK_bags] PRIMARY KEY ([Id])
+);
+2026-04-20 16:49:21.836 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [CodRecords] (
+    [Id] uniqueidentifier NOT NULL,
+    [ParcelId] uniqueidentifier NOT NULL,
+    [Amount] decimal(18,2) NOT NULL,
+    [IsCollected] bit NOT NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [UpdatedAt] datetime2 NULL,
+    CONSTRAINT [PK_CodRecords] PRIMARY KEY ([Id])
+);
+2026-04-20 16:49:21.843 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [CodSettlements] (
+    [Id] uniqueidentifier NOT NULL,
+    [MerchantId] uniqueidentifier NOT NULL,
+    [ShipperId] uniqueidentifier NOT NULL,
+    [ParcelIds] nvarchar(max) NOT NULL,
+    [TotalCollected] decimal(18,2) NOT NULL,
+    [TotalSubmitted] decimal(18,2) NOT NULL,
+    [TotalSettled] decimal(18,2) NOT NULL,
+    [Status] nvarchar(max) NOT NULL,
+    [CreatedDate] datetime2 NOT NULL,
+    [SettledDate] datetime2 NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [UpdatedAt] datetime2 NULL,
+    CONSTRAINT [PK_CodSettlements] PRIMARY KEY ([Id])
+);
+2026-04-20 16:49:21.851 +07:00 [INF] Executed DbCommand (5ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [fee_configs] (
+    [Id] uniqueidentifier NOT NULL,
+    [ServiceTypeId] uniqueidentifier NOT NULL,
+    [ZoneId] uniqueidentifier NOT NULL,
+    [MinWeight] decimal(18,2) NOT NULL,
+    [MaxWeight] decimal(18,2) NOT NULL,
+    [BasePrice_Amount] decimal(18,2) NOT NULL,
+    [BasePrice_Currency] nvarchar(3) NOT NULL,
+    [ExtraPricePerKg_Amount] decimal(18,2) NOT NULL,
+    [ExtraPricePerKg_Currency] nvarchar(3) NOT NULL,
+    [IsActive] bit NOT NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [UpdatedAt] datetime2 NULL,
+    CONSTRAINT [PK_fee_configs] PRIMARY KEY ([Id])
+);
+2026-04-20 16:49:21.856 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [hubs] (
+    [Id] uniqueidentifier NOT NULL,
+    [HubCode] nvarchar(50) NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [Address] nvarchar(max) NOT NULL,
+    [ProvinceCode] nvarchar(max) NOT NULL,
+    [HubType] nvarchar(max) NOT NULL,
+    [ManagerId] uniqueidentifier NULL,
+    [Capacity] int NOT NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [UpdatedAt] datetime2 NULL,
+    CONSTRAINT [PK_hubs] PRIMARY KEY ([Id])
+);
+2026-04-20 16:49:21.860 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [merchants] (
+    [Id] uniqueidentifier NOT NULL,
+    [MerchantCode] nvarchar(50) NOT NULL,
+    [Name] nvarchar(max) NOT NULL,
+    [Phone] nvarchar(max) NOT NULL,
+    [Email] nvarchar(max) NOT NULL,
+    [DefaultHubId] uniqueidentifier NULL,
+    [ApiKey] nvarchar(max) NOT NULL,
+    [IsActive] bit NOT NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [UpdatedAt] datetime2 NULL,
+    CONSTRAINT [PK_merchants] PRIMARY KEY ([Id])
+);
+2026-04-20 16:49:21.865 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [ParcelLocations] (
+    [Id] uniqueidentifier NOT NULL,
+    [ParcelId] uniqueidentifier NOT NULL,
+    [RackId] uniqueidentifier NOT NULL,
+    [InDate] datetime2 NOT NULL,
+    [ActorId] uniqueidentifier NOT NULL,
+    [Note] nvarchar(max) NOT NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [UpdatedAt] datetime2 NULL,
+    CONSTRAINT [PK_ParcelLocations] PRIMARY KEY ([Id])
+);
+2026-04-20 16:49:21.873 +07:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [parcels] (
+    [Id] uniqueidentifier NOT NULL,
+    [TrackingCode] nvarchar(50) NOT NULL,
+    [Sender_Street] nvarchar(max) NOT NULL,
+    [Sender_Province] nvarchar(max) NOT NULL,
+    [Sender_District] nvarchar(max) NOT NULL,
+    [Sender_Ward] nvarchar(max) NOT NULL,
+    [Receiver_Street] nvarchar(max) NOT NULL,
+    [Receiver_Province] nvarchar(max) NOT NULL,
+    [Receiver_District] nvarchar(max) NOT NULL,
+    [Receiver_Ward] nvarchar(max) NOT NULL,
+    [Weight] decimal(18,2) NOT NULL,
+    [CodAmount_Amount] decimal(18,2) NOT NULL,
+    [CodAmount_Currency] nvarchar(3) NOT NULL,
+    [Status] nvarchar(max) NOT NULL,
+    [FailCount] int NOT NULL DEFAULT 0,
+    [SlaDate] datetime2 NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [UpdatedAt] datetime2 NULL,
+    CONSTRAINT [PK_parcels] PRIMARY KEY ([Id])
+);
+2026-04-20 16:49:21.878 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [PickupRequests] (
+    [Id] uniqueidentifier NOT NULL,
+    [MerchantId] uniqueidentifier NOT NULL,
+    [Address] nvarchar(max) NOT NULL,
+    [PickupDate] datetime2 NOT NULL,
+    [CreatedAt] datetime2 NOT NULL,
+    [UpdatedAt] datetime2 NULL,
+    CONSTRAINT [PK_PickupRequests] PRIMARY KEY ([Id])
+);
+2026-04-20 16:49:21.904 +07:00 [ERR] Failed executing DbCommand (24ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [Products] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NOT NULL,
+    [Price] decimal(18,2) NOT NULL,
+    [Quantity] int NOT NULL,
+    CONSTRAINT [PK_Products] PRIMARY KEY ([Id])
+);
+2026-04-20 16:50:18.686 +07:00 [WRN] No store type was specified for the decimal property 'Amount' on entity type 'CodRecord'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:50:18.718 +07:00 [WRN] No store type was specified for the decimal property 'TotalCollected' on entity type 'CodSettlement'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:50:18.719 +07:00 [WRN] No store type was specified for the decimal property 'TotalSettled' on entity type 'CodSettlement'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:50:18.720 +07:00 [WRN] No store type was specified for the decimal property 'TotalSubmitted' on entity type 'CodSettlement'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:50:18.722 +07:00 [WRN] No store type was specified for the decimal property 'MaxWeight' on entity type 'FeeConfig'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:50:18.723 +07:00 [WRN] No store type was specified for the decimal property 'MinWeight' on entity type 'FeeConfig'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:50:18.724 +07:00 [WRN] No store type was specified for the decimal property 'Weight' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:50:18.725 +07:00 [WRN] No store type was specified for the decimal property 'Price' on entity type 'Product'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-20 16:50:18.727 +07:00 [WRN] No store type was specified for the decimal property 'BaseFee' on entity type 'ServiceType'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
