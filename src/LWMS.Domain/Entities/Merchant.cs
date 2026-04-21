@@ -1,4 +1,6 @@
-namespace LWMS.Domain.Common;
+using LWMS.Domain.Common;
+
+namespace LWMS.Domain.Entities;
 public class Merchant :BaseEntity
 {
     public string MerchantCode {get;set;} = string.Empty;

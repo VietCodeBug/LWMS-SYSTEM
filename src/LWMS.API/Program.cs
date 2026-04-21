@@ -114,5 +114,6 @@ app.UseAuthorization();
 // 8. MAP ENDPOINTS (tách ra từng file)
 // ──────────────────────────────────────────────
 app.MapAuthEndpoints();
+app.MapDiagnosticEndpoints();
 
 app.Run();

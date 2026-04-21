@@ -9,12 +9,24 @@ namespace LWMS.Infrastructure.Data
     public class AppDbContext : DbContext, IApplicationDbContext
     {
         private readonly ICurrentUserService _currentUserService;
+        private readonly Data.Interceptors.AuditInterceptor? _auditInterceptor;
 
         public AppDbContext(
             DbContextOptions<AppDbContext> options,
-            ICurrentUserService currentUserService) : base(options)
+            ICurrentUserService currentUserService,
+            Data.Interceptors.AuditInterceptor? auditInterceptor = null) : base(options)
         {
             _currentUserService = currentUserService;
+            _auditInterceptor = auditInterceptor;
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            if (_auditInterceptor != null)
+            {
+                optionsBuilder.AddInterceptors(_auditInterceptor);
+            }
+            base.OnConfiguring(optionsBuilder);
         }
 
         // ── DbSets ──

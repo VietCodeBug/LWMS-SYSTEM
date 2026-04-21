@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using LWMS.Infrastructure.Data;
 using LWMS.Application.Common.Interfaces;
 using LWMS.Infrastructure.Services;
+using LWMS.Infrastructure.Repositories;
 
 
 namespace LWMS.Infrastructure
@@ -16,6 +17,18 @@ namespace LWMS.Infrastructure
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<AppDbContext>());
             services.AddScoped<JwtService>();
+
+            // Repositories
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IParcelRepository, ParcelRepository>();
+            services.AddScoped<IHubRepository, HubRepository>();
+            services.AddScoped<IMerchantRepository, MerchantRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IBagRepository, BagRepository>();
+
+            // Interceptors
+            services.AddScoped<Data.Interceptors.AuditInterceptor>();
+
             return services;
         }
     }

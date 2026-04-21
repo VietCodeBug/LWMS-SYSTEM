@@ -3367,3 +3367,232 @@ VALUES (N'20260421023808_AddTenantFilterAndSeeds', N'10.0.6');
 DECLARE @result int;
 EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
 SELECT @result
+2026-04-21 10:55:41.300 +07:00 [WRN] No store type was specified for the decimal property 'MaxWeight' on entity type 'FeeConfig'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:41.332 +07:00 [WRN] No store type was specified for the decimal property 'MinWeight' on entity type 'FeeConfig'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:41.332 +07:00 [WRN] No store type was specified for the decimal property 'Discount' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:41.332 +07:00 [WRN] No store type was specified for the decimal property 'Height' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:41.332 +07:00 [WRN] No store type was specified for the decimal property 'InsuranceFee' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:41.332 +07:00 [WRN] No store type was specified for the decimal property 'Length' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:41.333 +07:00 [WRN] No store type was specified for the decimal property 'ShippingFee' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:41.333 +07:00 [WRN] No store type was specified for the decimal property 'TotalFee' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:41.333 +07:00 [WRN] No store type was specified for the decimal property 'Width' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:41.333 +07:00 [WRN] No store type was specified for the decimal property 'BaseFee' on entity type 'ServiceType'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:49.624 +07:00 [WRN] No store type was specified for the decimal property 'MaxWeight' on entity type 'FeeConfig'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:49.659 +07:00 [WRN] No store type was specified for the decimal property 'MinWeight' on entity type 'FeeConfig'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:49.659 +07:00 [WRN] No store type was specified for the decimal property 'Discount' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:49.659 +07:00 [WRN] No store type was specified for the decimal property 'Height' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:49.659 +07:00 [WRN] No store type was specified for the decimal property 'InsuranceFee' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:49.659 +07:00 [WRN] No store type was specified for the decimal property 'Length' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:49.659 +07:00 [WRN] No store type was specified for the decimal property 'ShippingFee' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:49.659 +07:00 [WRN] No store type was specified for the decimal property 'TotalFee' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:49.659 +07:00 [WRN] No store type was specified for the decimal property 'Width' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:49.659 +07:00 [WRN] No store type was specified for the decimal property 'BaseFee' on entity type 'ServiceType'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 10:55:50.207 +07:00 [INF] Executed DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-04-21 10:55:50.214 +07:00 [INF] Acquiring an exclusive lock for migration application. See https://aka.ms/efcore-docs-migrations-lock for more information if this takes too long.
+2026-04-21 10:55:50.242 +07:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_getapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session', @LockMode = 'Exclusive';
+SELECT @result
+2026-04-21 10:55:50.300 +07:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF OBJECT_ID(N'[__EFMigrationsHistory]') IS NULL
+BEGIN
+    CREATE TABLE [__EFMigrationsHistory] (
+        [MigrationId] nvarchar(150) NOT NULL,
+        [ProductVersion] nvarchar(32) NOT NULL,
+        CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY ([MigrationId])
+    );
+END;
+2026-04-21 10:55:50.308 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2026-04-21 10:55:50.308 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2026-04-21 10:55:50.341 +07:00 [INF] Executed DbCommand (31ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2026-04-21 10:55:50.347 +07:00 [INF] Applying migration '20260421035542_SeedInitialDemoData'.
+2026-04-21 10:55:50.442 +07:00 [INF] Executed DbCommand (57ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Address', N'Capacity', N'CreatedAt', N'HubCode', N'HubLevel', N'HubType', N'IsActive', N'IsDeleted', N'Latitude', N'Longitude', N'ManagerId', N'Name', N'OperatingHours', N'ProvinceCode', N'UpdatedAt') AND [object_id] = OBJECT_ID(N'[hubs]'))
+    SET IDENTITY_INSERT [hubs] ON;
+INSERT INTO [hubs] ([Id], [Address], [Capacity], [CreatedAt], [HubCode], [HubLevel], [HubType], [IsActive], [IsDeleted], [Latitude], [Longitude], [ManagerId], [Name], [OperatingHours], [ProvinceCode], [UpdatedAt])
+VALUES ('001e9c52-7360-4927-aa72-5b91cf8e9661', N'Số 1 Cầu Giấy, Hà Nội', 10000, '0001-01-01T00:00:00.0000000', N'HN-01', 1, N'SORTING_CENTER', CAST(1 AS bit), CAST(0 AS bit), NULL, NULL, NULL, N'Hub Hà Nội - Trung tâm', NULL, N'HN', NULL),
+('001e9c52-7360-4927-aa72-5b91cf8e9662', N'Số 100 Quận 1, TP.HCM', 12000, '0001-01-01T00:00:00.0000000', N'HCM-01', 1, N'SORTING_CENTER', CAST(1 AS bit), CAST(0 AS bit), NULL, NULL, NULL, N'Hub TP.HCM - Miền Nam', NULL, N'HCM', NULL);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'Address', N'Capacity', N'CreatedAt', N'HubCode', N'HubLevel', N'HubType', N'IsActive', N'IsDeleted', N'Latitude', N'Longitude', N'ManagerId', N'Name', N'OperatingHours', N'ProvinceCode', N'UpdatedAt') AND [object_id] = OBJECT_ID(N'[hubs]'))
+    SET IDENTITY_INSERT [hubs] OFF;
+2026-04-21 10:55:50.456 +07:00 [INF] Executed DbCommand (14ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'ApiKey', N'CreatedAt', N'DefaultHubId', N'Email', N'IsActive', N'IsDeleted', N'MerchantCode', N'Name', N'Phone', N'RowVersion', N'UpdatedAt') AND [object_id] = OBJECT_ID(N'[merchants]'))
+    SET IDENTITY_INSERT [merchants] ON;
+INSERT INTO [merchants] ([Id], [ApiKey], [CreatedAt], [DefaultHubId], [Email], [IsActive], [IsDeleted], [MerchantCode], [Name], [Phone], [RowVersion], [UpdatedAt])
+VALUES ('221e9c52-7360-4927-aa72-5b91cf8e9661', N'lwms_test_api_key_2026', '0001-01-01T00:00:00.0000000', NULL, N'contact@demo-merc.com', CAST(1 AS bit), CAST(0 AS bit), N'DEMO-MERC', N'Giao Hàng Demo Store', N'0888888888', NULL, NULL);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'ApiKey', N'CreatedAt', N'DefaultHubId', N'Email', N'IsActive', N'IsDeleted', N'MerchantCode', N'Name', N'Phone', N'RowVersion', N'UpdatedAt') AND [object_id] = OBJECT_ID(N'[merchants]'))
+    SET IDENTITY_INSERT [merchants] OFF;
+2026-04-21 10:55:50.472 +07:00 [INF] Executed DbCommand (16ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CreatedAt', N'EmployeeCode', N'FullName', N'HubId', N'IsActive', N'IsDeleted', N'LastLogin', N'PasswordHash', N'Phone', N'Role', N'ShipperCapacity', N'UpdatedAt', N'VehicleType') AND [object_id] = OBJECT_ID(N'[users]'))
+    SET IDENTITY_INSERT [users] ON;
+INSERT INTO [users] ([Id], [CreatedAt], [EmployeeCode], [FullName], [HubId], [IsActive], [IsDeleted], [LastLogin], [PasswordHash], [Phone], [Role], [ShipperCapacity], [UpdatedAt], [VehicleType])
+VALUES ('111e9c52-7360-4927-aa72-5b91cf8e9661', '0001-01-01T00:00:00.0000000', N'ADM-01', N'Hệ thống Admin', NULL, CAST(1 AS bit), CAST(0 AS bit), NULL, N'$2a$11$mC7p989S.n6Y7R3YjX2YPO.Y8Y7R3YjX2YPO.Y8Y7R3YjX2YPO.', N'0999999999', N'Admin', NULL, NULL, NULL);
+IF EXISTS (SELECT * FROM [sys].[identity_columns] WHERE [name] IN (N'Id', N'CreatedAt', N'EmployeeCode', N'FullName', N'HubId', N'IsActive', N'IsDeleted', N'LastLogin', N'PasswordHash', N'Phone', N'Role', N'ShipperCapacity', N'UpdatedAt', N'VehicleType') AND [object_id] = OBJECT_ID(N'[users]'))
+    SET IDENTITY_INSERT [users] OFF;
+2026-04-21 10:55:50.474 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20260421035542_SeedInitialDemoData', N'10.0.6');
+2026-04-21 10:55:50.478 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+DECLARE @result int;
+EXEC @result = sp_releaseapplock @Resource = '__EFMigrationsLock', @LockOwner = 'Session';
+SELECT @result
+2026-04-21 10:59:57.845 +07:00 [INF] User profile is available. Using 'C:\Users\Ian_Pham\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-21 10:59:58.035 +07:00 [INF] Now listening on: http://localhost:5166
+2026-04-21 10:59:58.037 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-21 10:59:58.038 +07:00 [INF] Hosting environment: Development
+2026-04-21 10:59:58.038 +07:00 [INF] Content root path: D:\Ark_1\lwms-system\src\LWMS.API
+2026-04-21 11:00:04.492 +07:00 [INF] Application is shutting down...
+2026-04-21 11:00:38.400 +07:00 [INF] User profile is available. Using 'C:\Users\Ian_Pham\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2026-04-21 11:00:38.529 +07:00 [INF] Now listening on: http://localhost:5166
+2026-04-21 11:00:38.530 +07:00 [INF] Application started. Press Ctrl+C to shut down.
+2026-04-21 11:00:38.531 +07:00 [INF] Hosting environment: Development
+2026-04-21 11:00:38.531 +07:00 [INF] Content root path: D:\Ark_1\lwms-system\src\LWMS.API
+2026-04-21 11:00:50.850 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/test-sla - null null
+2026-04-21 11:00:51.017 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/test-sla - 404 0 null 168.8348ms
+2026-04-21 11:00:51.020 +07:00 [INF] Request reached the end of the middleware pipeline without being handled by application code. Request path: GET http://localhost:5166/test-sla, Response status code: 404
+2026-04-21 11:01:05.545 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/debug/preview-data - null null
+2026-04-21 11:01:05.551 +07:00 [INF] Executing endpoint 'HTTP: GET /debug/preview-data'
+2026-04-21 11:01:06.470 +07:00 [WRN] No store type was specified for the decimal property 'MaxWeight' on entity type 'FeeConfig'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 11:01:06.470 +07:00 [WRN] No store type was specified for the decimal property 'MinWeight' on entity type 'FeeConfig'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 11:01:06.470 +07:00 [WRN] No store type was specified for the decimal property 'Discount' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 11:01:06.470 +07:00 [WRN] No store type was specified for the decimal property 'Height' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 11:01:06.470 +07:00 [WRN] No store type was specified for the decimal property 'InsuranceFee' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 11:01:06.471 +07:00 [WRN] No store type was specified for the decimal property 'Length' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 11:01:06.471 +07:00 [WRN] No store type was specified for the decimal property 'ShippingFee' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 11:01:06.471 +07:00 [WRN] No store type was specified for the decimal property 'TotalFee' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 11:01:06.471 +07:00 [WRN] No store type was specified for the decimal property 'Width' on entity type 'Parcel'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 11:01:06.471 +07:00 [WRN] No store type was specified for the decimal property 'BaseFee' on entity type 'ServiceType'. This will cause values to be silently truncated if they do not fit in the default precision and scale. Explicitly specify the SQL server column type that can accommodate all the values in 'OnModelCreating' using 'HasColumnType', specify precision and scale using 'HasPrecision', or configure a value converter using 'HasConversion'.
+2026-04-21 11:01:07.005 +07:00 [INF] Executed DbCommand (49ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [hubs] AS [h]
+WHERE [h].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:07.038 +07:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [users] AS [u]
+WHERE [u].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:07.046 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [merchants] AS [m]
+WHERE [m].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:07.054 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [service_types] AS [s]
+WHERE [s].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:07.073 +07:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[HubCode], [h].[Name], [h].[Address]
+FROM [hubs] AS [h]
+WHERE [h].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:07.083 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[MerchantCode], [m].[Name]
+FROM [merchants] AS [m]
+WHERE [m].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:07.091 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[EmployeeCode], [u].[FullName], [u].[Role]
+FROM [users] AS [u]
+WHERE [u].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:07.098 +07:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Code], [s].[Name], [s].[BaseFee]
+FROM [service_types] AS [s]
+WHERE [s].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:07.102 +07:00 [INF] Setting HTTP status code 200.
+2026-04-21 11:01:07.127 +07:00 [INF] Writing value of type '<>f__AnonymousType1`7' as Json.
+2026-04-21 11:01:07.137 +07:00 [INF] Executed endpoint 'HTTP: GET /debug/preview-data'
+2026-04-21 11:01:07.146 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/debug/preview-data - 200 null application/json; charset=utf-8 1601.4551ms
+2026-04-21 11:01:46.574 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/debug/preview-data - null null
+2026-04-21 11:01:46.581 +07:00 [INF] Executing endpoint 'HTTP: GET /debug/preview-data'
+2026-04-21 11:01:46.637 +07:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [hubs] AS [h]
+WHERE [h].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:46.638 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [users] AS [u]
+WHERE [u].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:46.639 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [merchants] AS [m]
+WHERE [m].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:46.640 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [service_types] AS [s]
+WHERE [s].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:46.648 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[HubCode], [h].[Name], [h].[Address]
+FROM [hubs] AS [h]
+WHERE [h].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:46.649 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[MerchantCode], [m].[Name]
+FROM [merchants] AS [m]
+WHERE [m].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:46.650 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[EmployeeCode], [u].[FullName], [u].[Role]
+FROM [users] AS [u]
+WHERE [u].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:46.652 +07:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Code], [s].[Name], [s].[BaseFee]
+FROM [service_types] AS [s]
+WHERE [s].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:46.652 +07:00 [INF] Setting HTTP status code 200.
+2026-04-21 11:01:46.652 +07:00 [INF] Writing value of type '<>f__AnonymousType1`7' as Json.
+2026-04-21 11:01:46.652 +07:00 [INF] Executed endpoint 'HTTP: GET /debug/preview-data'
+2026-04-21 11:01:46.653 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/debug/preview-data - 200 null application/json; charset=utf-8 78.6957ms
+2026-04-21 11:01:50.992 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/swagger/index.html - null null
+2026-04-21 11:01:51.030 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/swagger/index.html - 304 null null 38.0372ms
+2026-04-21 11:01:51.056 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/swagger/swagger-ui.css - null null
+2026-04-21 11:01:51.057 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/swagger/index.css - null null
+2026-04-21 11:01:51.058 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/swagger/swagger-ui-bundle.js - null null
+2026-04-21 11:01:51.059 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/swagger/index.js - null null
+2026-04-21 11:01:51.059 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/swagger/swagger-ui-standalone-preset.js - null null
+2026-04-21 11:01:51.059 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/swagger/index.js - 304 null null 0.7504ms
+2026-04-21 11:01:51.066 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/swagger/swagger-ui.css - 304 null null 10.0008ms
+2026-04-21 11:01:51.066 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/swagger/index.css - 304 null null 9.6584ms
+2026-04-21 11:01:51.066 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/swagger/swagger-ui-standalone-preset.js - 304 null null 7.2611ms
+2026-04-21 11:01:51.073 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/swagger/swagger-ui-bundle.js - 304 null null 14.5685ms
+2026-04-21 11:01:51.331 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/swagger/v1/swagger.json - null null
+2026-04-21 11:01:51.336 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/swagger/favicon-32x32.png - null null
+2026-04-21 11:01:51.336 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/swagger/favicon-32x32.png - 304 null null 0.3932ms
+2026-04-21 11:01:51.342 +07:00 [INF] No action descriptors found. This may indicate an incorrectly configured application or missing application parts. To learn more, visit https://aka.ms/aspnet/mvc/app-parts
+2026-04-21 11:01:51.450 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 118.9531ms
+2026-04-21 11:01:56.499 +07:00 [INF] Request starting HTTP/1.1 GET http://localhost:5166/debug/preview-data - null null
+2026-04-21 11:01:56.500 +07:00 [INF] Executing endpoint 'HTTP: GET /debug/preview-data'
+2026-04-21 11:01:56.517 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [hubs] AS [h]
+WHERE [h].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:56.518 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [users] AS [u]
+WHERE [u].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:56.518 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [merchants] AS [m]
+WHERE [m].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:56.519 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [service_types] AS [s]
+WHERE [s].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:56.519 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[HubCode], [h].[Name], [h].[Address]
+FROM [hubs] AS [h]
+WHERE [h].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:56.520 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[MerchantCode], [m].[Name]
+FROM [merchants] AS [m]
+WHERE [m].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:56.521 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [u].[EmployeeCode], [u].[FullName], [u].[Role]
+FROM [users] AS [u]
+WHERE [u].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:56.521 +07:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [s].[Code], [s].[Name], [s].[BaseFee]
+FROM [service_types] AS [s]
+WHERE [s].[IsDeleted] = CAST(0 AS bit)
+2026-04-21 11:01:56.521 +07:00 [INF] Setting HTTP status code 200.
+2026-04-21 11:01:56.521 +07:00 [INF] Writing value of type '<>f__AnonymousType1`7' as Json.
+2026-04-21 11:01:56.521 +07:00 [INF] Executed endpoint 'HTTP: GET /debug/preview-data'
+2026-04-21 11:01:56.522 +07:00 [INF] Request finished HTTP/1.1 GET http://localhost:5166/debug/preview-data - 200 null application/json; charset=utf-8 22.2937ms

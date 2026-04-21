@@ -1,5 +1,6 @@
 using LWMS.Domain.Common;
 using LWMS.Domain.Entities;
+using LWMS.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
@@ -70,6 +71,9 @@ public class HubConfiguration : IEntityTypeConfiguration<Hub>
         builder.ToTable("hubs");
         builder.HasIndex(h => h.HubCode).IsUnique();
         builder.Property(h => h.RowVersion).IsRowVersion();
+
+        // 🌱 DỮ LIỆU MẪU (Thay đổi tại InitialSeedData.cs)
+        builder.HasData(InitialSeedData.GetHubs());
     }
 }
 
@@ -128,6 +132,9 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
 
         builder.Property(u => u.Role).HasConversion<string>();
         builder.Property(u => u.RowVersion).IsRowVersion();
+
+        // 🌱 DỮ LIỆU MẪU (Thay đổi tại InitialSeedData.cs)
+        builder.HasData(InitialSeedData.GetUsers());
     }
 }
 
@@ -137,6 +144,9 @@ public class MerchantConfiguration : IEntityTypeConfiguration<Merchant>
     {
         builder.ToTable("merchants");
         builder.HasIndex(m => m.MerchantCode).IsUnique();
+
+        // 🌱 DỮ LIỆU MẪU (Thay đổi tại InitialSeedData.cs)
+        builder.HasData(InitialSeedData.GetMerchants());
     }
 }
 
@@ -253,32 +263,8 @@ public class ServiceTypeConfiguration : IEntityTypeConfiguration<ServiceType>
         builder.ToTable("service_types");
         builder.HasIndex(s => s.Code).IsUnique();
 
-        builder.HasData(
-            new ServiceType 
-            { 
-                Id = Guid.Parse("aa1e9c52-7360-4927-aa72-5b91cf8e9661"),
-                Code = "STANDARD", 
-                Name = "Giao hàng Tiêu chuẩn", 
-                BaseFee = 15000, 
-                EstimatedDays = "3-5 ngày" 
-            },
-            new ServiceType 
-            { 
-                Id = Guid.Parse("bb1e9c52-7360-4927-aa72-5b91cf8e9662"),
-                Code = "FAST", 
-                Name = "Giao hàng Nhanh", 
-                BaseFee = 25000, 
-                EstimatedDays = "1-2 ngày" 
-            },
-            new ServiceType 
-            { 
-                Id = Guid.Parse("cc1e9c52-7360-4927-aa72-5b91cf8e9663"),
-                Code = "EXPRESS", 
-                Name = "Giao hàng Hỏa tốc", 
-                BaseFee = 45000, 
-                EstimatedDays = "Trong ngày" 
-            }
-        );
+        // 🌱 DỮ LIỆU MẪU (Thay đổi tại InitialSeedData.cs)
+        builder.HasData(InitialSeedData.GetServiceTypes());
     }
 }
 
@@ -296,6 +282,5 @@ public class AuditLogConfiguration : IEntityTypeConfiguration<AuditLog>
     public void Configure(EntityTypeBuilder<AuditLog> builder)
     {
         builder.ToTable("audit_logs");
-        builder.Property(a => a.Changes).HasColumnType("nvarchar(max)");
     }
 }

@@ -5,7 +5,7 @@ namespace LWMS.Domain.Enums
         Created,
         Picking,
         Picked,
-        Intrasit,
+        InTransit,
         ArrivedHub,    
         OutForDelivery,
         Delivered,

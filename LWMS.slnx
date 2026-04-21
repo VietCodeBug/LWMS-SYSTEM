@@ -8,5 +8,6 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/LWMS.Domain.UnitTests/LWMS.Domain.UnitTests.csproj" />
+    <Project Path="tests/LWMS.Infrastructure.Tests/LWMS.Infrastructure.Tests.csproj" />
   </Folder>
 </Solution>

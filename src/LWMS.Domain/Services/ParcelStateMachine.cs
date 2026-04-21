@@ -7,8 +7,8 @@ public class ParcelStateMachine
   {
     {ParcelStatus.Created,new(){ParcelStatus.Picking}},
     {ParcelStatus.Picking,new(){ParcelStatus.Picked}},
-    {ParcelStatus.Picked,new(){ParcelStatus.Intrasit}},
-    {ParcelStatus.Intrasit,new(){ParcelStatus.ArrivedHub}},
+    {ParcelStatus.Picked,new(){ParcelStatus.InTransit}},
+    {ParcelStatus.InTransit,new(){ParcelStatus.ArrivedHub}},
     {ParcelStatus.ArrivedHub,new(){ParcelStatus.OutForDelivery}},
     {ParcelStatus.OutForDelivery,new(){
         ParcelStatus.Delivered,
