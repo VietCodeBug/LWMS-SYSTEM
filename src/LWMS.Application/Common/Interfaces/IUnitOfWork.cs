@@ -1,3 +1,5 @@
+using LWMS.Domain.Entities;
+
 namespace LWMS.Application.Common.Interfaces;
 public interface IUnitOfWork
 {
@@ -6,6 +8,11 @@ public interface IUnitOfWork
     IMerchantRepository Merchants { get; }
     IUserRepository Users { get; }
     IBagRepository Bags { get; }
-    
+    IRepository<ServiceType> ServiceTypes { get; }
+    IRepository<TrackingLog> TrackingLogs { get; }
+    IRepository<BagItem> BagItems { get; }
+    IRepository<ShipperAssignment> ShipperAssignments { get; }
+    IRepository<CodRecord> CodRecords { get; }
+    IRepository<ReturnOrder> ReturnOrders { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

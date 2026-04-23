@@ -108,6 +108,9 @@ namespace LWMS.Infrastructure.Migrations
                         .ValueGeneratedOnAddOrUpdate()
                         .HasColumnType("rowversion");
 
+                    b.Property<string>("SealNumber")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("SealedAt")
                         .HasColumnType("datetime2");
 
@@ -162,7 +165,8 @@ namespace LWMS.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParcelId");
+                    b.HasIndex("ParcelId")
+                        .IsUnique();
 
                     b.HasIndex("BagId", "ParcelId");
 
@@ -199,16 +203,24 @@ namespace LWMS.Infrastructure.Migrations
                     b.Property<byte[]>("RowVersion")
                         .HasColumnType("varbinary(max)");
 
+                    b.Property<DateTime?>("SettledAt")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("Status")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("SubmittedAt")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("UpdatedAt")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParcelId");
+                    b.HasIndex("ParcelId", "Status")
+                        .IsUnique()
+                        .HasFilter("[Status] = 'COLLECTED'");
 
                     b.ToTable("cod_records", (string)null);
                 });
@@ -650,6 +662,9 @@ namespace LWMS.Infrastructure.Migrations
 
                     b.HasIndex("TrackingCode")
                         .IsUnique();
+
+                    b.HasIndex("SlaDate", "Status")
+                        .HasFilter("[SlaDate] IS NOT NULL");
 
                     b.HasIndex("Status", "CurrentHubId");
 

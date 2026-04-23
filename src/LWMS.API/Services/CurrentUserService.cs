@@ -12,10 +12,12 @@ public class CurrentUserService : ICurrentUserService
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public string? UserId => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier);
-    
+    public Guid? UserId =>
+        Guid.TryParse(_httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.NameIdentifier), out var userId) ? userId : null;
+
     // Giả định chúng ta lưu MerchantId vào Claim "MerchantId" khi login
-    public string? MerchantId => _httpContextAccessor.HttpContext?.User?.FindFirstValue("MerchantId");
-    
+    public Guid? MerchantId =>
+        Guid.TryParse(_httpContextAccessor.HttpContext?.User?.FindFirstValue("MerchantId"), out var merchantId) ? merchantId : null;
+
     public string? Role => _httpContextAccessor.HttpContext?.User?.FindFirstValue(ClaimTypes.Role);
 }

@@ -3,10 +3,13 @@ namespace LWMS.Domain.Enums
     public enum ParcelStatus
     {
         Created,
+        LabelPrinted,
         Picking,
         Picked,
         InTransit,
-        ArrivedHub,    
+        ArrivedHub,
+        Sorted,
+        InBag,
         OutForDelivery,
         Delivered,
         FailedDelivery,

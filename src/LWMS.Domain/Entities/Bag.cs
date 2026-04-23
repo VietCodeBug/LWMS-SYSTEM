@@ -21,6 +21,9 @@ public class Bag : BaseEntity
     /// <summary>Trạng thái: Open, Sealed, InTransit, Received</summary>
     public BagStatus Status { get; set; } = BagStatus.Open;
 
+    /// <summary>Số seal (kẹp chì) niêm phong</summary>
+    public string? SealNumber { get; set; }
+
     /// <summary>Thời điểm niêm phong bao (sealed = không thêm parcel được nữa)</summary>
     public DateTime? SealedAt { get; set; }
 

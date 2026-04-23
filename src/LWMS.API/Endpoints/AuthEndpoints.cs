@@ -12,26 +12,33 @@ namespace LWMS.API.Endpoints
     {
         public static WebApplication MapAuthEndpoints(this WebApplication app)
         {
-            app.MapPost("/api/auth/login", Login)
-               .AllowAnonymous()
-               .WithTags("Auth")
-               .WithSummary("Đăng nhập và lấy JWT token");
+            app.MapPost("/api/auth/login", async (LWMS.Application.Common.Models.LoginRequest request, JwtService jwtService, LWMS.Infrastructure.Data.AppDbContext dbContext) =>
+            {
+                var user = Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.FirstOrDefaultAsync(dbContext.Users, u => u.Phone == request.Phone).Result;
+                if (user == null || request.Password != "123456") // Bỏ qua hash password cho test
+                    return Results.Unauthorized();
+
+                var token = jwtService.GenerateToken(user.Id, user.FullName, user.Role.ToString(), null);
+                return Results.Ok(new { token });
+            })
+            .AllowAnonymous()
+            .WithTags("Auth")
+            .WithSummary("Đăng nhập và lấy JWT token");
+
+            app.MapGet("/me", (LWMS.Application.Common.Interfaces.ICurrentUserService currentUserService) =>
+            {
+                return Results.Ok(new
+                {
+                    UserId = currentUserService.UserId,
+                    MerchantId = currentUserService.MerchantId,
+                    Role = currentUserService.Role
+                });
+            })
+            .RequireAuthorization()
+            .WithTags("Auth")
+            .WithSummary("Lấy thông tin user hiện tại từ Token");
 
             return app;
-        }
-
-        private static async Task<IResult> Login(
-            LoginRequest request,
-            JwtService jwtService)
-        {
-            // TODO: Thay bằng UserService thật sau này
-            await Task.CompletedTask;
-
-            if (request.Username != "admin" || request.Password != "123456")
-                return Results.Unauthorized();
-
-            var token = jwtService.GenerateToken(request.Username);
-            return Results.Ok(new { token });
         }
     }
 }

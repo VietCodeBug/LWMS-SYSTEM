@@ -16,7 +16,7 @@ namespace LWMS.Infrastructure
             services.AddDbContext<AppDbContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<AppDbContext>());
-            services.AddScoped<JwtService>();
+            services.AddScoped<IJwtService, JwtService>();
 
             // Repositories
             services.AddScoped<IUnitOfWork, UnitOfWork>();

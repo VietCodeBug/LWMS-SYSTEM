@@ -5,17 +5,17 @@ public class ParcelStateMachine
 {
   private static readonly Dictionary<ParcelStatus,List<ParcelStatus>> _transitions = new ()
   {
-    {ParcelStatus.Created,new(){ParcelStatus.Picking}},
-    {ParcelStatus.Picking,new(){ParcelStatus.Picked}},
-    {ParcelStatus.Picked,new(){ParcelStatus.InTransit}},
-    {ParcelStatus.InTransit,new(){ParcelStatus.ArrivedHub}},
-    {ParcelStatus.ArrivedHub,new(){ParcelStatus.OutForDelivery}},
-    {ParcelStatus.OutForDelivery,new(){
-        ParcelStatus.Delivered,
-        ParcelStatus.FailedDelivery
-        }},
-    {ParcelStatus.FailedDelivery,new(){ParcelStatus.Returning}},
-    {ParcelStatus.Returning,new(){ParcelStatus.Returned}},
+    {ParcelStatus.Created, new() { ParcelStatus.LabelPrinted, ParcelStatus.ArrivedHub, ParcelStatus.Cancelled }},
+    {ParcelStatus.LabelPrinted, new() { ParcelStatus.ArrivedHub, ParcelStatus.Cancelled }},
+    {ParcelStatus.ArrivedHub, new() { ParcelStatus.Sorted, ParcelStatus.InBag, ParcelStatus.OutForDelivery }},
+    {ParcelStatus.Sorted, new() { ParcelStatus.InBag, ParcelStatus.InTransit }},
+    {ParcelStatus.InBag, new() { ParcelStatus.InTransit }},
+    {ParcelStatus.InTransit, new() { ParcelStatus.ArrivedHub }},
+    {ParcelStatus.OutForDelivery, new() { ParcelStatus.Delivered, ParcelStatus.FailedDelivery }},
+    {ParcelStatus.FailedDelivery, new() { ParcelStatus.OutForDelivery, ParcelStatus.Returning }},
+    {ParcelStatus.Returning, new() { ParcelStatus.Returned }},
+    {ParcelStatus.Returned, new() { }},
+    {ParcelStatus.Cancelled, new() { }}
   };
   public static bool CanTransition(ParcelStatus from,ParcelStatus to)
   {

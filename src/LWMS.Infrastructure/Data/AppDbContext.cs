@@ -52,6 +52,26 @@ namespace LWMS.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // 💰 COD RECORD - Chặn Double COD
+            modelBuilder.Entity<CodRecord>()
+                .HasIndex(c => new { c.ParcelId, c.Status })
+                .IsUnique()
+                .HasFilter("[Status] = 'COLLECTED'"); // Chỉ cho phép 1 record COLLECTED mỗi đơn
+
+            // 📦 BAG ITEM - Chặn 1 đơn hàng vào 2 bao tải trong cùng 1 hành trình
+            modelBuilder.Entity<BagItem>()
+                .HasIndex(b => b.ParcelId)
+                .IsUnique(); 
+
+            // 🚀 TỐI ƯU TRUY VẤN (INDEXING)
+            modelBuilder.Entity<Parcel>()
+                .HasIndex(p => p.TrackingCode)
+                .IsUnique();
+            
+            modelBuilder.Entity<Parcel>()
+                .HasIndex(p => new { p.SlaDate, p.Status })
+                .HasFilter("[SlaDate] IS NOT NULL");
+
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
@@ -69,9 +89,9 @@ namespace LWMS.Infrastructure.Data
                 if (typeof(IMustHaveMerchant).IsAssignableFrom(entityType.ClrType))
                 {
                     var merchantId = _currentUserService.MerchantId;
-                    if (!string.IsNullOrEmpty(merchantId) && Guid.TryParse(merchantId, out var mId))
+                    if (merchantId.HasValue)
                     {
-                        modelBuilder.Entity(entityType.ClrType).AddMerchantFilter(mId);
+                        modelBuilder.Entity(entityType.ClrType).AddMerchantFilter(merchantId.Value);
                     }
                 }
             }

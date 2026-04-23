@@ -10,6 +10,7 @@ public class CodRecord : BaseEntity
 {
     /// <summary>Bưu kiện có COD</summary>
     public Guid ParcelId { get; set; }
+    public Parcel Parcel { get; set; } = null!;
 
     /// <summary>Số tiền COD cần thu</summary>
     public decimal Amount { get; set; }
@@ -25,4 +26,7 @@ public class CodRecord : BaseEntity
 
     /// <summary>User Id của shipper đã thu tiền</summary>
     public Guid? CollectedBy { get; set; }
+
+    public DateTime? SubmittedAt { get; set; }
+    public DateTime? SettledAt { get; set; }
 }

@@ -144,7 +144,7 @@ public class Parcel : BaseEntity, IMustHaveMerchant
         if (!ParcelStateMachine.CanTransition(Status, newStatus))
         {
             throw new InvalidOperationException(
-                $"Cannot transition from {Status} to {newStatus}"
+                $"Quy trình không hợp lệ: Không thể chuyển từ {Status} sang {newStatus}. Vui lòng kiểm tra lại luồng nghiệp vụ."
             );
         }
         Status = newStatus;
@@ -157,8 +157,9 @@ public class Parcel : BaseEntity, IMustHaveMerchant
     {
         if (!ParcelStateMachine.CanTransition(Status, newStatus))
         {
-            throw new InvalidOperationException($"Cannot transition from {Status} to {newStatus}");
+            throw new InvalidOperationException($"Vi phạm State Machine: Từ {Status} không được phép nhảy sang {newStatus}.");
         }
+        
         var log = new TrackingLog
         {
             ParcelId = this.Id,
@@ -166,7 +167,9 @@ public class Parcel : BaseEntity, IMustHaveMerchant
             ToStatus = newStatus,
             ActorId = actorId,
             Location = location,
+            CreatedTime = DateTime.UtcNow
         };
+        
         Status = newStatus;
         return log;
     }

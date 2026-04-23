@@ -1,16 +1,26 @@
 using LWMS.Application;
 using LWMS.Infrastructure;
-using LWMS.API.Endpoints;
 using LWMS.API.Middlewares;
 using LWMS.Application.Common.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi;
 using Serilog;
 using System.Text;
 using LWMS.Domain.Services;
 using LWMS.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
+using LWMS.Application.Common.Interfaces;
+using LWMS.API.Services;
+using System.Threading.RateLimiting;
+using Microsoft.AspNetCore.RateLimiting;
+using Microsoft.OpenApi;
+using Swashbuckle.AspNetCore.SwaggerGen;
+using QuestPDF.Infrastructure;
+
+// ──────────────────────────────────────────────
+// 0. CONFIG LIBRARIES
+// ──────────────────────────────────────────────
+QuestPDF.Settings.License = LicenseType.Community;
 
 // ──────────────────────────────────────────────
 // 1. BOOTSTRAP LOGGER (khởi động sớm để log lỗi startup)
@@ -40,19 +50,19 @@ builder.Services
     .AddAuthentication(opt =>
     {
         opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-        opt.DefaultChallengeScheme    = JwtBearerDefaults.AuthenticationScheme;
+        opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
     .AddJwtBearer(opt =>
     {
         opt.TokenValidationParameters = new TokenValidationParameters
         {
-            ValidateIssuer           = true,
-            ValidateAudience         = true,
-            ValidateLifetime         = true,
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            ValidIssuer              = jwtSettings.Issuer,
-            ValidAudience            = jwtSettings.Audience,
-            IssuerSigningKey         = new SymmetricSecurityKey(
+            ValidIssuer = jwtSettings.Issuer,
+            ValidAudience = jwtSettings.Audience,
+            IssuerSigningKey = new SymmetricSecurityKey(
                                            Encoding.UTF8.GetBytes(jwtSettings.SecretKey)),
             ClockSkew = TimeSpan.Zero
         };
@@ -68,29 +78,62 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 // Auth Services
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<LWMS.Application.Common.Interfaces.ICurrentUserService, LWMS.API.Services.CurrentUserService>();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+builder.Services.AddControllers();
+
+// ──────────────────────────────────────────────
+// 5.5 RATE LIMITING (.NET 7+)
+// ──────────────────────────────────────────────
+builder.Services.AddRateLimiter(options =>
+{
+    options.AddFixedWindowLimiter("Merchant", opt =>
+    {
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 1000;
+        opt.QueueLimit = 10;
+        opt.QueueProcessingOrder = System.Threading.RateLimiting.QueueProcessingOrder.OldestFirst;
+    });
+
+    options.AddFixedWindowLimiter("Public", opt =>
+    {
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.PermitLimit = 100;
+        opt.QueueLimit = 0;
+    });
+});
+
 // ──────────────────────────────────────────────
 // 5. SWAGGER / OPENAPI
 // ──────────────────────────────────────────────
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
 {
+    c.SwaggerDoc("v1", new OpenApiInfo 
+    { 
+        Title = "LWMS Logistics API", 
+        Version = "v1",
+        Description = "Hệ thống quản lý vận hành Logistics - Phase 4 Production Ready"
+    });
+
     c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
-        Name        = "Authorization",
-        Type        = SecuritySchemeType.Http,
-        Scheme      = "bearer",
+        Name = "Authorization",
+        Type = SecuritySchemeType.Http,
+        Scheme = "bearer",
         BearerFormat = "JWT",
-        In          = ParameterLocation.Header,
+        In = ParameterLocation.Header,
         Description = "Chỉ cần dán JWT token vào đây (không cần gõ 'Bearer')"
     });
 
-    c.AddSecurityRequirement(document => new OpenApiSecurityRequirement
+    c.AddSecurityRequirement(doc => new OpenApiSecurityRequirement
     {
-        [new OpenApiSecuritySchemeReference("Bearer", document)] = new List<string>()
+        {
+            new OpenApiSecuritySchemeReference("Bearer", doc),
+            new List<string>()
+        }
     });
 });
 
@@ -102,18 +145,20 @@ var app = builder.Build();
 // ──────────────────────────────────────────────
 // 7. MIDDLEWARE PIPELINE (thứ tự quan trọng!)
 // ──────────────────────────────────────────────
-app.UseMiddleware<ExceptionMiddleware>(); // ← bắt exception toàn cục
+app.UseMiddleware<ExceptionMiddleware>();    // 1. Bắt lỗi toàn cục
+app.UseMiddleware<CorrelationIdMiddleware>(); // 2. Gán mã truy vết
+app.UseMiddleware<RequestLoggingMiddleware>(); // 3. Ghi log Request
 
 app.UseSwagger();
 app.UseSwaggerUI();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseRateLimiter(); // 4. Giới hạn tần suất
 
 // ──────────────────────────────────────────────
-// 8. MAP ENDPOINTS (tách ra từng file)
+// 8. MAP CONTROLLERS
 // ──────────────────────────────────────────────
-app.MapAuthEndpoints();
-app.MapDiagnosticEndpoints();
+app.MapControllers();
 
 app.Run();

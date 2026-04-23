@@ -4,9 +4,11 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using LWMS.Application.Common.Models;
 
+using LWMS.Application.Common.Interfaces;
+
 namespace LWMS.Infrastructure.Services
 {
-    public class JwtService
+    public class JwtService : IJwtService
     {
         private readonly JwtSettings _setting;
 
@@ -15,12 +17,19 @@ namespace LWMS.Infrastructure.Services
             _setting = settings;
         }
 
-        public string GenerateToken(string username)
+        public string GenerateToken(Guid userId, string fullName, string role, Guid? merchantId)
         {
-            var claims = new[]
+            var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, username)
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                new Claim(ClaimTypes.Name, fullName),
+                new Claim(ClaimTypes.Role, role)
             };
+
+            if (merchantId.HasValue)
+            {
+                claims.Add(new Claim("MerchantId", merchantId.Value.ToString()));
+            }
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_setting.SecretKey));
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);

@@ -38,7 +38,7 @@ public class AuditInterceptor : SaveChangesInterceptor
 
         if (!entries.Any()) return;
 
-        var userId = _currentUserService.UserId != null ? Guid.Parse(_currentUserService.UserId) : Guid.Empty;
+        var userId = _currentUserService.UserId ?? Guid.Empty;
         var role = _currentUserService.Role ?? "System";
 
         foreach (var entry in entries)

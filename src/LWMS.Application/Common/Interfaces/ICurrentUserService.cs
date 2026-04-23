@@ -2,7 +2,7 @@ namespace LWMS.Application.Common.Interfaces;
 
 public interface ICurrentUserService
 {
-    string? UserId { get; }
-    string? MerchantId { get; }
+    Guid? UserId { get; }
+    Guid? MerchantId { get; }
     string? Role { get; }
 }

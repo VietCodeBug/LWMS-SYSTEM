@@ -35,21 +35,28 @@ namespace LWMS.API.Middlewares
         {
             context.Response.ContentType = "application/json";
 
-            var (statusCode, message) = exception switch
+             var (statusCode, message, errorCode) = exception switch
             {
-                ArgumentNullException => (HttpStatusCode.BadRequest, exception.Message),
-                KeyNotFoundException  => (HttpStatusCode.NotFound, exception.Message),
-                UnauthorizedAccessException => (HttpStatusCode.Unauthorized, "Không có quyền truy cập."),
-                _ => (HttpStatusCode.InternalServerError, "Đã xảy ra lỗi hệ thống. Vui lòng thử lại sau.")
+                ArgumentException => (HttpStatusCode.BadRequest, exception.Message, "INVALID_ARGUMENT"),
+                FluentValidation.ValidationException => (HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.", "VALIDATION_ERROR"),
+                LWMS.Application.Common.Exceptions.BusinessException => (HttpStatusCode.BadRequest, exception.Message, "BUSINESS_ERROR"),
+                LWMS.Application.Common.Behaviors.ForbiddenAccessException => (HttpStatusCode.Forbidden, exception.Message, "FORBIDDEN_ACCESS"),
+                Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException => (HttpStatusCode.Conflict, "Dữ liệu đã được cập nhật bởi một người dùng khác. Vui lòng tải lại trang.", "CONCURRENCY_ERROR"),
+                KeyNotFoundException => (HttpStatusCode.NotFound, exception.Message, "NOT_FOUND"),
+                UnauthorizedAccessException => (HttpStatusCode.Unauthorized, "Không có quyền truy cập.", "UNAUTHORIZED"),
+                _ => (HttpStatusCode.InternalServerError, "Đã xảy ra lỗi hệ thống. Vui lòng thử lại sau.", "INTERNAL_ERROR")
             };
 
             context.Response.StatusCode = (int)statusCode;
 
-            var result = JsonSerializer.Serialize(new
-            {
-                statusCode = (int)statusCode,
-                message
-            });
+            var response = new LWMS.Application.Common.Models.ErrorResponse(
+                (int)statusCode,
+                message,
+                errorCode,
+                context.TraceIdentifier // Dùng TraceIdentifier của ASP.NET Core làm TraceId
+            );
+
+            var result = JsonSerializer.Serialize(response, new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase });
 
             return context.Response.WriteAsync(result);
         }

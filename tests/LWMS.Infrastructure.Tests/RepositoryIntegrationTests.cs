@@ -37,7 +37,7 @@ public class RepositoryIntegrationTests : IDisposable
             .Options;
 
         var currentUserServiceMock = new Mock<ICurrentUserService>();
-        currentUserServiceMock.Setup(x => x.UserId).Returns(Guid.NewGuid().ToString());
+        currentUserServiceMock.Setup(x => x.UserId).Returns(Guid.NewGuid());
         currentUserServiceMock.Setup(x => x.Role).Returns("Admin");
 
         var interceptor = new AuditInterceptor(currentUserServiceMock.Object);
@@ -148,6 +148,67 @@ public class RepositoryIntegrationTests : IDisposable
         logs.First().Changes.Should().Contain("InTransit");
         _output.WriteLine($"✅ Logs update: {logs.First().Changes}");
     }
+
+    [Fact]
+    public async Task Bagging_Process_Should_Succeed()
+    {
+        _output.WriteLine("🚀 Bắt đầu test: Quy trình đóng bao (Bagging Process)");
+
+        // 1. Tạo Bag mới
+        var bag = new Bag
+        {
+            Id = Guid.NewGuid(),
+            BagCode = "BAG-TEST-001",
+            FromHubId = _hubId,
+            ToHubId = _hubId,
+            Status = BagStatus.Open
+        };
+        await _uow.Bags.AddAsync(bag);
+
+        // 2. Tạo 2 kiện hàng để cho vào bao
+        var p1 = CreateTestParcel("TRK-BAG-001");
+        var p2 = CreateTestParcel("TRK-BAG-002");
+        await _uow.Parcels.AddAsync(p1);
+        await _uow.Parcels.AddAsync(p2);
+
+        // 3. Đóng kiện hàng vào bao (BagItem)
+        await _uow.BagItems.AddAsync(new BagItem { Id = Guid.NewGuid(), BagId = bag.Id, ParcelId = p1.Id });
+        await _uow.BagItems.AddAsync(new BagItem { Id = Guid.NewGuid(), BagId = bag.Id, ParcelId = p2.Id });
+
+        // 4. Kẹp chì (Seal Bag)
+        bag.Status = BagStatus.Sealed;
+        bag.SealNumber = "SEAL-123456";
+        bag.SealedAt = DateTime.UtcNow;
+
+        // 5. Lưu toàn bộ (EF sẽ tự động Insert Bag, Parcels, BagItems và cập nhật trạng thái Bag trong 1 transaction)
+        await _uow.SaveChangesAsync();
+
+        // ASSERT
+        _output.WriteLine("🔍 Đang kiểm tra kết quả đóng bao...");
+        var savedBag = await _uow.Bags.GetByIdAsync(bag.Id);
+        savedBag!.Status.Should().Be(BagStatus.Sealed);
+        savedBag.SealNumber.Should().Be("SEAL-123456");
+
+        var items = await _context.BagItems.Where(x => x.BagId == bag.Id).ToListAsync();
+        items.Should().HaveCount(2);
+
+        var audit = await _context.AuditLogs
+            .Where(a => a.EntityType == "Bag" && a.Action == "ADDED")
+            .FirstOrDefaultAsync();
+        audit.Should().NotBeNull();
+        _output.WriteLine($"✅ Thành công! Audit Log ghi nhận Bag mới khởi tạo đã có Status: {audit!.Changes}");
+    }
+
+    private Parcel CreateTestParcel(string trk) => new Parcel
+    {
+        Id = Guid.NewGuid(),
+        TrackingCode = trk,
+        SenderName = "S", ReceiverName = "R",
+        MerchantId = _merchantId, OriginHubId = _hubId, DestHubId = _hubId, ServiceTypeId = _serviceTypeId,
+        CodAmount = new Money(0, "VND"),
+        SenderAddress = new Address("A", "P", "D", "W"),
+        ReceiverAddress = new Address("A", "P", "D", "W")
+    };
 
     public void Dispose()
     {

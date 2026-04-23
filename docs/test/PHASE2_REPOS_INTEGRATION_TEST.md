@@ -50,6 +50,17 @@ Xác nhận tính đúng đắn của tầng hạ tầng (Infrastructure Layer),
     - **Audit JSON**: `{"Status":{"Old":"Created","New":"InTransit"}}`
     - Thông tin về thời gian (`UpdatedAt`) cũng được ghi nhận.
 
+### TC-03: Quy trình Đóng bao & Kẹp chì (Bagging & Sealing)
+*   **Mục tiêu**: Kiểm tra việc gom đơn hàng vào bao và thực hiện niêm phong (Seal).
+*   **Các bước thực hiện**:
+    1. Tạo 01 Bag mới ở trạng thái `Open`.
+    2. Tạo 02 Parcels và 02 `BagItems` để liên kết chúng vào Bag.
+    3. Cập nhật `Status = Sealed` và gán mã `SealNumber`.
+    4. Lưu toàn bộ qua `UnitOfWork`.
+*   **Kết quả kỳ vọng**: Bag lưu thành công, Audit ghi nhận trạng thái niêm phong.
+*   **Kết quả thực tế**: 🔵 **PASSED**.
+    - Audit ghi nhận đầy đủ Snapshot của Bag lúc mới tạo kèm thông tin chì: `SEAL-123456`.
+
 ---
 
 ## 4. DỮ LIỆU ĐẦU VÀO MẪU (TEST DATA)
@@ -59,13 +70,14 @@ Xác nhận tính đúng đắn của tầng hạ tầng (Infrastructure Layer),
 | Hub | H-001 | 🟢 Valid |
 | ServiceType | STD | 🟢 Valid |
 | Parcel | TRK-af423de9 | 🟢 Created -> InTransit |
+| Bag | BAG-TEST-001 | 🟢 Open -> Sealed (Seal: SEAL-123456) |
 
 ---
 
 ## 5. KẾT LUẬN & GHI CHÚ
-*   **Tính toàn vẹn**: Toàn bộ các API truy vấn của Repository và UnitOfWork đã ổn định.
-*   **Audit Trail**: Hệ thống tự động bóc tách được dữ liệu cũ/mới (Snapshot) cực kỳ chi tiết, đáp ứng đầy đủ tiêu chuẩn BRD v2.0.
-*   **Khuyến nghị**: Có thể tiếp tục triển khai Phase 3 (Application Layer) mà không cần lo lắng về lỗi dữ liệu nền.
+*   **Tính toàn vẹn**: Hệ thống đã xử lý tốt các ràng buộc phức tạp giữa Bag, BagItem và Parcel.
+*   **Audit Trail**: Đã bóc tách thành công cả sự kiện `ADDED` (cho Bag mới) và `MODIFIED` (cho logic cập nhật).
+*   **Khuyến nghị**: Các API về quản lý kho và điều phối có thể tin tưởng hoàn toàn vào lớp Data này.
 
 ---
-*Báo cáo này được tự động tạo sau khi chạy lệnh: `dotnet test tests/LWMS.Infrastructure.Tests`*
+*Báo cáo này được cập nhật lần cuối vào: 2026-04-22 15:28 (Sau quy trình Test Bagging)*

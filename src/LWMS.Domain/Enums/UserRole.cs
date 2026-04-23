@@ -1,10 +1,10 @@
-namespace LWMS.Domain.Enums
-{
-    public enum UserRole
-    {
-        Admin,
-        Staff,
-        Shipper
+namespace LWMS.Domain.Enums;
 
-    }
+public enum UserRole
+{
+    Admin,
+    HubManager,
+    Staff,
+    Sorter,
+    Shipper
 }
