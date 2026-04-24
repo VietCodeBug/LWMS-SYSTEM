@@ -93,6 +93,10 @@ public class AuditInterceptor : SaveChangesInterceptor
                 changes[property.Metadata.Name] = val!;
             }
         }
+        else if (entry.State == EntityState.Deleted)
+        {
+            changes["Message"] = "Entity has been deleted.";
+        }
 
         return JsonSerializer.Serialize(changes);
     }

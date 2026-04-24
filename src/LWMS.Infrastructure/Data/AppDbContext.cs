@@ -49,6 +49,7 @@ namespace LWMS.Infrastructure.Data
         public DbSet<FeeConfig> FeeConfigs => Set<FeeConfig>();
         public DbSet<Zone> Zones => Set<Zone>();
         public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
+        public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -76,55 +77,40 @@ namespace LWMS.Infrastructure.Data
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
-            // ── GLOBAL QUERY FILTERS ──
-            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        // ── GLOBAL QUERY FILTERS ──
+        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
+        {
+            // 1. Soft Delete Filter
+            if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
             {
-                // 1. Soft Delete Filter
-                if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
-                {
-                    modelBuilder.Entity(entityType.ClrType).AddSoftDeleteFilter();
-                }
+                var method = typeof(AppDbContext).GetMethod(nameof(SetSoftDeleteFilter), 
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+                    .MakeGenericMethod(entityType.ClrType);
+                method.Invoke(this, new object[] { modelBuilder });
+            }
 
-                // 2. Tenant Filter (IMustHaveMerchant)
-                if (typeof(IMustHaveMerchant).IsAssignableFrom(entityType.ClrType))
-                {
-                    var merchantId = _currentUserService.MerchantId;
-                    if (merchantId.HasValue)
-                    {
-                        modelBuilder.Entity(entityType.ClrType).AddMerchantFilter(merchantId.Value);
-                    }
-                }
+            // 2. Tenant Filter (IMustHaveMerchant)
+            if (typeof(IMustHaveMerchant).IsAssignableFrom(entityType.ClrType))
+            {
+                var method = typeof(AppDbContext).GetMethod(nameof(SetMerchantFilter), 
+                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+                    .MakeGenericMethod(entityType.ClrType);
+                method.Invoke(this, new object[] { modelBuilder });
             }
         }
     }
 
     // ──────────────────────────────────────────────
-    // 🛠 EXTENSION METHODS CHO QUERY FILTER (Tránh dùng MethodInfo.Invoke)
+    // 🛠 DYNAMIC FILTER BUILDERS (EVALUATED AT RUNTIME)
     // ──────────────────────────────────────────────
-    public static class ExpressionExtensions
+    private void SetSoftDeleteFilter<T>(ModelBuilder modelBuilder) where T : BaseEntity
     {
-        public static void AddSoftDeleteFilter(this EntityTypeBuilder entityTypeBuilder)
-        {
-            var method = typeof(ExpressionExtensions).GetMethod(nameof(GetSoftDeleteFilter), 
-                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!
-                .MakeGenericMethod(entityTypeBuilder.Metadata.ClrType);
-            var filter = method.Invoke(null, null);
-            entityTypeBuilder.HasQueryFilter((dynamic)filter!);
-        }
-
-        public static void AddMerchantFilter(this EntityTypeBuilder entityTypeBuilder, Guid merchantId)
-        {
-            var method = typeof(ExpressionExtensions).GetMethod(nameof(GetMerchantFilter), 
-                System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Static)!
-                .MakeGenericMethod(entityTypeBuilder.Metadata.ClrType);
-            var filter = method.Invoke(null, new object[] { merchantId });
-            entityTypeBuilder.HasQueryFilter((dynamic)filter!);
-        }
-
-        private static System.Linq.Expressions.Expression<Func<T, bool>> GetSoftDeleteFilter<T>() where T : BaseEntity
-            => x => !x.IsDeleted;
-
-        private static System.Linq.Expressions.Expression<Func<T, bool>> GetMerchantFilter<T>(Guid merchantId) where T : class, IMustHaveMerchant
-            => x => x.MerchantId == merchantId;
+        modelBuilder.Entity<T>().HasQueryFilter(x => !x.IsDeleted);
     }
-}
+
+    private void SetMerchantFilter<T>(ModelBuilder modelBuilder) where T : class, IMustHaveMerchant
+    {
+        modelBuilder.Entity<T>().HasQueryFilter(x => 
+            _currentUserService.MerchantId == null || x.MerchantId == _currentUserService.MerchantId);
+    }
+}}

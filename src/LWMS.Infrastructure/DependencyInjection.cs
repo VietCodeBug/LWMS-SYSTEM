@@ -17,6 +17,7 @@ namespace LWMS.Infrastructure
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<AppDbContext>());
             services.AddScoped<IJwtService, JwtService>();
+            services.AddScoped<IPasswordService, PasswordService>();
 
             // Repositories
             services.AddScoped<IUnitOfWork, UnitOfWork>();

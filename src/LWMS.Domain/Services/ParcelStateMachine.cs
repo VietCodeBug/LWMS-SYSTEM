@@ -5,9 +5,11 @@ public class ParcelStateMachine
 {
   private static readonly Dictionary<ParcelStatus,List<ParcelStatus>> _transitions = new ()
   {
-    {ParcelStatus.Created, new() { ParcelStatus.LabelPrinted, ParcelStatus.ArrivedHub, ParcelStatus.Cancelled }},
-    {ParcelStatus.LabelPrinted, new() { ParcelStatus.ArrivedHub, ParcelStatus.Cancelled }},
-    {ParcelStatus.ArrivedHub, new() { ParcelStatus.Sorted, ParcelStatus.InBag, ParcelStatus.OutForDelivery }},
+    {ParcelStatus.Created, new() { ParcelStatus.LabelPrinted, ParcelStatus.Picking, ParcelStatus.ArrivedHub, ParcelStatus.Cancelled }},
+    {ParcelStatus.LabelPrinted, new() { ParcelStatus.Picking, ParcelStatus.ArrivedHub, ParcelStatus.Cancelled }},
+    {ParcelStatus.Picking, new() { ParcelStatus.Picked, ParcelStatus.Cancelled }},
+    {ParcelStatus.Picked, new() { ParcelStatus.ArrivedHub, ParcelStatus.Cancelled }},
+    {ParcelStatus.ArrivedHub, new() { ParcelStatus.Sorted, ParcelStatus.InBag, ParcelStatus.OutForDelivery, ParcelStatus.Returning }},
     {ParcelStatus.Sorted, new() { ParcelStatus.InBag, ParcelStatus.InTransit }},
     {ParcelStatus.InBag, new() { ParcelStatus.InTransit }},
     {ParcelStatus.InTransit, new() { ParcelStatus.ArrivedHub }},

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.RateLimiting;
 using Microsoft.OpenApi;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using QuestPDF.Infrastructure;
+using LWMS.API.Configurations;
 
 // ──────────────────────────────────────────────
 // 0. CONFIG LIBRARIES
@@ -75,9 +76,11 @@ builder.Services.AddAuthorization();
 // ──────────────────────────────────────────────
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddHealthChecks().AddDbContextCheck<AppDbContext>();
 
 // Auth Services
 builder.Services.AddHttpContextAccessor();
+builder.Services.AddAppAuthorization();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -148,6 +151,7 @@ var app = builder.Build();
 app.UseMiddleware<ExceptionMiddleware>();    // 1. Bắt lỗi toàn cục
 app.UseMiddleware<CorrelationIdMiddleware>(); // 2. Gán mã truy vết
 app.UseMiddleware<RequestLoggingMiddleware>(); // 3. Ghi log Request
+app.UseMiddleware<ApiKeyMiddleware>();
 
 app.UseSwagger();
 app.UseSwaggerUI();
@@ -161,4 +165,5 @@ app.UseRateLimiter(); // 4. Giới hạn tần suất
 // ──────────────────────────────────────────────
 app.MapControllers();
 
-app.Run();
+app.MapHealthChecks("/health");
+app.Run();public partial class Program { }

@@ -3,8 +3,8 @@ using System.Security.Claims;
 using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using LWMS.Application.Common.Models;
-
 using LWMS.Application.Common.Interfaces;
+using System.Security.Cryptography;
 
 namespace LWMS.Infrastructure.Services
 {
@@ -42,6 +42,14 @@ namespace LWMS.Infrastructure.Services
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);
+        }
+
+        public string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
         }
     }
 }

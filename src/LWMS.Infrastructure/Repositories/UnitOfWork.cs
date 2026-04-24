@@ -18,6 +18,7 @@ public class UnitOfWork : IUnitOfWork
     private IRepository<ShipperAssignment>? _shipperAssignments;
     private IRepository<ReturnOrder>? _returnOrders;
     private IRepository<ServiceType>? _serviceTypes;
+    private IRepository<RefreshToken>? _refreshTokens;
 
     public UnitOfWork(AppDbContext context)
     {
@@ -35,6 +36,7 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<ShipperAssignment> ShipperAssignments => _shipperAssignments ??= new RepositoryBase<ShipperAssignment>(_context);
     public IRepository<ReturnOrder> ReturnOrders => _returnOrders ??= new RepositoryBase<ReturnOrder>(_context);
     public IRepository<ServiceType> ServiceTypes => _serviceTypes ??= new RepositoryBase<ServiceType>(_context);
+    public IRepository<RefreshToken> RefreshTokens => _refreshTokens ??= new RepositoryBase<RefreshToken>(_context);
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

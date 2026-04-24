@@ -6,5 +6,7 @@ public enum UserRole
     HubManager,
     Staff,
     Sorter,
-    Shipper
+    Shipper,
+    MerchantAdmin,
+    MerchantStaff
 }

@@ -11,4 +11,10 @@ public class AuthController : ApiControllerBase
     {
         return await Mediator.Send(command);
     }
+
+    [HttpPost("refresh")]
+    public async Task<ActionResult<LWMS.Application.Auth.Commands.Refresh.RefreshResponse>> Refresh(LWMS.Application.Auth.Commands.Refresh.RefreshCommand command)
+    {
+        return await Mediator.Send(command);
+    }
 }

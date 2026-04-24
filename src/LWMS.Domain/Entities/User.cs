@@ -25,6 +25,9 @@ public class User : BaseEntity
     /// <summary>Hub mà nhân viên thuộc về</summary>
     public Guid? HubId { get; set; }
 
+    /// <summary>Merchant mà nhân viên thuộc về (nếu có)</summary>
+    public Guid? MerchantId { get; set; }
+
     /// <summary>Tài khoản có đang hoạt động không</summary>
     public bool IsActive { get; set; } = true;
 

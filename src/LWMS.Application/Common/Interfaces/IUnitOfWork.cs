@@ -14,5 +14,6 @@ public interface IUnitOfWork
     IRepository<ShipperAssignment> ShipperAssignments { get; }
     IRepository<CodRecord> CodRecords { get; }
     IRepository<ReturnOrder> ReturnOrders { get; }
+    IRepository<RefreshToken> RefreshTokens { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
