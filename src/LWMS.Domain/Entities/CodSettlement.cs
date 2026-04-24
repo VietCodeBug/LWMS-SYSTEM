@@ -29,4 +29,8 @@ public class CodSettlement : BaseEntity, IMustHaveMerchant
     public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
 
     public DateTime? SettledDate { get; set; }
+
+    public Merchant Merchant { get; set; } = null!;
+    public User Shipper { get; set; } = null!;
+    public ICollection<CodSettlementItem> Items { get; set; } = new List<CodSettlementItem>();
 }

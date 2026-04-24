@@ -41,4 +41,7 @@ public class Hub : BaseEntity
 
     /// <summary>Kinh độ</summary>
     public double? Longitude { get; set; }
+
+    public ICollection<Rack> Racks { get; set; } = new List<Rack>();
+    public ICollection<User> Users { get; set; } = new List<User>();
 }

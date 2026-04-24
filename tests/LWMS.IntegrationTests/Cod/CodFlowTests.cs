@@ -1,4 +1,5 @@
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using FluentAssertions;
 using LWMS.Application.Parcels.Commands.Create;
@@ -28,24 +29,24 @@ public class CodFlowTests : IClassFixture<CustomWebApplicationFactory<Program>>
             ReceiverName = "Cus B",
             ReceiverPhone = "0904445556",
             Weight = 2.0m,
-            CodAmount = 500000, // 500k COD
+            CodAmount = 500000, 
             Province = "HCM",
-            OriginHubId = Guid.NewGuid(),
-            DestHubId = Guid.NewGuid(),
-            ServiceId = Guid.NewGuid()
+            OriginHubId = CustomWebApplicationFactory<Program>.TestHubId,
+            DestHubId = CustomWebApplicationFactory<Program>.TestDestHubId,
+            ServiceId = CustomWebApplicationFactory<Program>.TestServiceId
         };
 
-        var response = await _client.PostAsJsonAsync("/api/v1/parcels", command);
-        response.EnsureSuccessStatusCode();
-        var parcel = await response.Content.ReadFromJsonAsync<CreateParcelResponse>();
+        var requestMessage = new HttpRequestMessage(HttpMethod.Post, "/api/v1/parcels");
+        requestMessage.Content = JsonContent.Create(command);
+        requestMessage.Headers.Authorization = new AuthenticationHeaderValue("Test");
 
-        // 2. Simulate Delivery success (Thiếu endpoint Delivery hien tai? - Se gia lap qua DB hoac internal command)
-        // Trong Integration Test chung ta thuong goi POST /api/v1/parcels/{id}/delivered
+        var response = await _client.SendAsync(requestMessage);
+        response.StatusCode.Should().Be(HttpStatusCode.OK);
         
-        // Assert: 
-        parcel.Should().NotBeNull();
-        parcel.TrackingCode.Should().NotBeEmpty();
-        
-        // TODO: Goi endpoint cap nhat Delivered va check /api/v1/cod/{merchantId}
+        var result = await response.Content.ReadFromJsonAsync<CreateParcelResponse>();
+
+        // Assert 
+        result.Should().NotBeNull();
+        result.TrackingCode.Should().NotBeEmpty();
     }
 }

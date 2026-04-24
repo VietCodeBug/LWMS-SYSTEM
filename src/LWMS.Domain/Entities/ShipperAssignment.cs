@@ -34,4 +34,8 @@ public class ShipperAssignment : BaseEntity
 
     /// <summary>Lý do thất bại (nếu Status = FAILED)</summary>
     public string? FailedReason { get; set; }
+
+    public Parcel Parcel { get; set; } = null!;
+    public User Shipper { get; set; } = null!;
+    public Hub Hub { get; set; } = null!;
 }

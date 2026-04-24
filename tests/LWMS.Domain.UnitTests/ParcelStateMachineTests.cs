@@ -34,6 +34,12 @@ public class ParcelStateMachineTests
     [InlineData(ParcelStatus.Returning, ParcelStatus.Returned)]
     [InlineData(ParcelStatus.ArrivedHub, ParcelStatus.Returning)] // Admin can force returning
     [InlineData(ParcelStatus.Created, ParcelStatus.Cancelled)]
+    
+    // Incident flows
+    [InlineData(ParcelStatus.ArrivedHub, ParcelStatus.Lost)]
+    [InlineData(ParcelStatus.InTransit, ParcelStatus.Lost)]
+    [InlineData(ParcelStatus.OutForDelivery, ParcelStatus.Damaged)]
+    [InlineData(ParcelStatus.Picked, ParcelStatus.Damaged)]
     public void CanTransition_WithValidTransitions_ShouldReturnTrue(ParcelStatus from, ParcelStatus to)
     {
         // Act

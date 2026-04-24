@@ -43,4 +43,7 @@ public class TrackingLog : BaseEntity
     public string? Note { get; set; }
 
     public DateTime CreatedTime { get; set; } = DateTime.UtcNow;
+
+    public Parcel Parcel { get; set; } = null!;
+    public Hub? Hub { get; set; }
 }

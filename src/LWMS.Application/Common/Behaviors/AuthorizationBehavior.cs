@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.Extensions.Logging;
 using LWMS.Application.Common.Interfaces;
 using LWMS.Application.Common.Security;
 using MediatR;
@@ -9,10 +10,12 @@ public class AuthorizationBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
     where TRequest : IRequest<TResponse>
 {
     private readonly ICurrentUserService _currentUserService;
+    private readonly ILogger<AuthorizationBehavior<TRequest, TResponse>> _logger;
 
-    public AuthorizationBehavior(ICurrentUserService currentUserService)
+    public AuthorizationBehavior(ICurrentUserService currentUserService, ILogger<AuthorizationBehavior<TRequest, TResponse>> logger)
     {
         _currentUserService = currentUserService;
+        _logger = logger;
     }
 
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
@@ -24,6 +27,7 @@ public class AuthorizationBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
             // Must be authenticated
             if (_currentUserService.UserId == null)
             {
+                _logger.LogWarning("Authorization failed: UserId is null for request {RequestType}", typeof(TRequest).Name);
                 throw new UnauthorizedAccessException("Unauthenticated");
             }
 
@@ -48,6 +52,8 @@ public class AuthorizationBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
 
                 if (!authorized)
                 {
+                    _logger.LogWarning("Authorization failed: Role mismatch. Required: {RequiredRoles}, Actual: {ActualRole}", 
+                        string.Join(", ", authorizeAttributesWithRoles.Select(a => a.Roles)), _currentUserService.Role);
                     throw new ForbiddenAccessException("Forbidden: You don't have permission to perform this action.");
                 }
             }

@@ -28,4 +28,7 @@ public class ParcelLocation : BaseEntity
 
     /// <summary>Ghi chú (VD: Tầng 2 kệ, vị trí góc trái)</summary>
     public string Note { get; set; } = string.Empty;
+
+    public Parcel Parcel { get; set; } = null!;
+    public Rack Rack { get; set; } = null!;
 }

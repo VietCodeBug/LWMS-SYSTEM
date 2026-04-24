@@ -38,7 +38,7 @@ namespace LWMS.Infrastructure.Services
                 issuer: _setting.Issuer,
                 audience: _setting.Audience,
                 claims: claims,
-                expires: DateTime.Now.AddMinutes(_setting.ExpiryMinutes),
+                expires: DateTime.UtcNow.AddMinutes(_setting.ExpiryMinutes),
                 signingCredentials: creds);
 
             return new JwtSecurityTokenHandler().WriteToken(token);

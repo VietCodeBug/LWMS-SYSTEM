@@ -51,4 +51,7 @@ public class FeeConfig : BaseEntity
     public DateTime? EffectiveTo { get; set; }
 
     public bool IsActive { get; set; } = true;
+
+    public ServiceType ServiceType { get; set; } = null!;
+    public Zone Zone { get; set; } = null!;
 }

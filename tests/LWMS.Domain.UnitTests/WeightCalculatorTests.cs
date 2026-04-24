@@ -6,28 +6,28 @@ namespace LWMS.Domain.UnitTests;
 public class WeightCalculatorTests
 {
     [Theory]
-    [InlineData(10, 10, 10, 0.2)]      // (10 * 10 * 10) / 5000 = 1000 / 5000 = 0.2
-    [InlineData(50, 40, 30, 12)]       // (50 * 40 * 30) / 5000 = 60000 / 5000 = 12
-    [InlineData(100, 50, 50, 50)]      // (100 * 50 * 50) / 5000 = 250000 / 5000 = 50
-    public void CalculateDimensionalWeight_ShouldReturnCorrectValue(decimal length, decimal width, decimal height, decimal expectedResult)
+    [InlineData(10, 10, 10, 0.2)] // (10*10*10)/5000 = 1000/5000 = 0.2
+    [InlineData(50, 50, 40, 20)]   // (50*50*40)/5000 = 100000/5000 = 20
+    [InlineData(100, 100, 100, 200)] // (100^3)/5000 = 1000000/5000 = 200
+    public void CalculateDimensionalWeight_ShouldReturnCorrectValue(decimal l, decimal w, decimal h, decimal expected)
     {
         // Act
-        var result = WeightCalculator.CalculateDimensionalWeight(length, width, height);
+        var result = WeightCalculator.CalculateDimensionalWeight(l, w, h);
 
         // Assert
-        result.Should().Be(expectedResult);
+        result.Should().Be(expected);
     }
 
     [Theory]
-    [InlineData(5, 10, 10)]            // Actual is smaller
-    [InlineData(15, 10, 15)]           // Actual is larger
-    [InlineData(10, 10, 10)]           // Both are equal
-    public void GetChargeableWeight_ShouldReturnMaxOfActualAndDimensional(decimal actual, decimal dimensional, decimal expectedResult)
+    [InlineData(10, 5, 10)] // Actual > Dim
+    [InlineData(5, 10, 10)] // Dim > Actual
+    [InlineData(8, 8, 8)]   // Equal
+    public void GetChargeableWeight_ShouldReturnMax(decimal actual, decimal dim, decimal expected)
     {
         // Act
-        var result = WeightCalculator.GetChargeableWeight(actual, dimensional);
+        var result = WeightCalculator.GetChargeableWeight(actual, dim);
 
         // Assert
-        result.Should().Be(expectedResult);
+        result.Should().Be(expected);
     }
 }

@@ -6,14 +6,19 @@ using LWMS.Application.Common.Interfaces;
 using LWMS.Infrastructure.Services;
 using LWMS.Infrastructure.Repositories;
 
-
 namespace LWMS.Infrastructure
 {
     public static class DependencyInjection
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+            var connectionString = config.GetConnectionString("DefaultConnection");
+
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                // ☁️ Chốt hạ sử dụng TiDB Cloud (MySQL) cho toàn bộ hệ thống
+                options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
+            });
 
             services.AddScoped<IApplicationDbContext>(provider => provider.GetRequiredService<AppDbContext>());
             services.AddScoped<IJwtService, JwtService>();

@@ -32,6 +32,11 @@ public class AuthorizationTests : IClassFixture<CustomWebApplicationFactory<Prog
         var response = await _client.GetAsync("/api/v1/parcels");
 
         // Assert
+        if (response.StatusCode != HttpStatusCode.Unauthorized)
+        {
+            var body = await response.Content.ReadAsStringAsync();
+            Console.WriteLine($"Expected 401, but got {response.StatusCode}. Body: {body}");
+        }
         response.StatusCode.Should().Be(HttpStatusCode.Unauthorized);
     }
 

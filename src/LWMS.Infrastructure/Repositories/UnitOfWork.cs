@@ -19,6 +19,10 @@ public class UnitOfWork : IUnitOfWork
     private IRepository<ReturnOrder>? _returnOrders;
     private IRepository<ServiceType>? _serviceTypes;
     private IRepository<RefreshToken>? _refreshTokens;
+    private IRackRepository? _racks;
+    private IParcelLocationRepository? _parcelLocations;
+    private IRepository<CodSettlement>? _codSettlements;
+    private IRepository<CodSettlementItem>? _codSettlementItems;
 
     public UnitOfWork(AppDbContext context)
     {
@@ -37,6 +41,10 @@ public class UnitOfWork : IUnitOfWork
     public IRepository<ReturnOrder> ReturnOrders => _returnOrders ??= new RepositoryBase<ReturnOrder>(_context);
     public IRepository<ServiceType> ServiceTypes => _serviceTypes ??= new RepositoryBase<ServiceType>(_context);
     public IRepository<RefreshToken> RefreshTokens => _refreshTokens ??= new RepositoryBase<RefreshToken>(_context);
+    public IRackRepository Racks => _racks ??= new RackRepository(_context);
+    public IParcelLocationRepository ParcelLocations => _parcelLocations ??= new ParcelLocationRepository(_context);
+    public IRepository<CodSettlement> CodSettlements => _codSettlements ??= new RepositoryBase<CodSettlement>(_context);
+    public IRepository<CodSettlementItem> CodSettlementItems => _codSettlementItems ??= new RepositoryBase<CodSettlementItem>(_context);
 
     public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
     {

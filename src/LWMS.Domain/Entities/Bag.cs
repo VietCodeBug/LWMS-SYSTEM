@@ -35,4 +35,6 @@ public class Bag : BaseEntity
 
     /// <summary>Danh sách BagItem (navigation property)</summary>
     public List<BagItem> Packages { get; set; } = new();
+    public Hub FromHub { get; set; } = null!;
+    public Hub ToHub { get; set; } = null!;
 }

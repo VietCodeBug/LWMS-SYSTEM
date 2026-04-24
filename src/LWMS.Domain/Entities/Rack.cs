@@ -31,4 +31,7 @@ public class Rack : BaseEntity
 
     /// <summary>Computed: kệ đã đầy chưa (không lưu DB)</summary>
     public bool IsFull => CurrentUsage >= Capacity;
+
+    public Hub Hub { get; set; } = null!;
+    public ICollection<ParcelLocation> ParcelLocations { get; set; } = new List<ParcelLocation>();
 }

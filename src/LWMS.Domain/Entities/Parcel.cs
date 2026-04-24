@@ -125,6 +125,13 @@ public class Parcel : BaseEntity, IMustHaveMerchant
     // ═══════════════════════════════════════════
     // 🔗 NAVIGATION PROPERTIES
     // ═══════════════════════════════════════════
+    public ParcelLocation? CurrentLocation { get; set; }
+    public Merchant Merchant { get; set; } = null!;
+    public Hub OriginHub { get; set; } = null!;
+    public Hub DestHub { get; set; } = null!;
+    public Hub? CurrentHub { get; set; }
+    public ServiceType? ServiceType { get; set; }
+
     public ICollection<TrackingLog> TrackingLogs { get; set; } = new List<TrackingLog>();
     public ICollection<BagItem> BagItems { get; set; } = new List<BagItem>();
     public ICollection<ShipperAssignment> ShipperAssignments { get; set; } = new List<ShipperAssignment>();
@@ -167,9 +174,33 @@ public class Parcel : BaseEntity, IMustHaveMerchant
             ToStatus = newStatus,
             ActorId = actorId,
             Location = location,
-            CreatedTime = DateTime.UtcNow
+            CreatedTime = DateTime.UtcNow,
+            EventType = "STATUS_CHANGE"
         };
         
+        Status = newStatus;
+        return log;
+    }
+
+    /// <summary>
+    /// 🔥 FORCE CHANGE STATUS — Bàn tay sắt của Admin.
+    /// Dùng khi hệ thống lỗi hoặc có sự cố ngoại lệ cần can thiệp tay.
+    /// Bỏ qua State Machine nhưng BẮT BUỘC có lý do.
+    /// </summary>
+    public TrackingLog ForceChangeStatus(ParcelStatus newStatus, Guid adminId, string reason, string location)
+    {
+        var log = new TrackingLog
+        {
+            ParcelId = this.Id,
+            FromStatus = this.Status,
+            ToStatus = newStatus,
+            ActorId = adminId,
+            Location = location,
+            EventType = "ADMIN_FORCE_CHANGE",
+            Note = $"ADMIN_FORCE: {reason}",
+            CreatedTime = DateTime.UtcNow
+        };
+
         Status = newStatus;
         return log;
     }

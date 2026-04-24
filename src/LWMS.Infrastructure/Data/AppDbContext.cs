@@ -50,14 +50,18 @@ namespace LWMS.Infrastructure.Data
         public DbSet<Zone> Zones => Set<Zone>();
         public DbSet<AuditLog> AuditLogs => Set<AuditLog>();
         public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
+        public DbSet<OutboxMessage> OutboxMessages => Set<OutboxMessage>();
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // ☁️ TỐI ƯU CHO TIDB CLOUD / MYSQL
+            modelBuilder.HasCharSet("utf8mb4");
+            modelBuilder.UseCollation("utf8mb4_unicode_ci");
+
             // 💰 COD RECORD - Chặn Double COD
             modelBuilder.Entity<CodRecord>()
                 .HasIndex(c => new { c.ParcelId, c.Status })
-                .IsUnique()
-                .HasFilter("[Status] = 'COLLECTED'"); // Chỉ cho phép 1 record COLLECTED mỗi đơn
+                .IsUnique();
 
             // 📦 BAG ITEM - Chặn 1 đơn hàng vào 2 bao tải trong cùng 1 hành trình
             modelBuilder.Entity<BagItem>()
@@ -70,35 +74,43 @@ namespace LWMS.Infrastructure.Data
                 .IsUnique();
             
             modelBuilder.Entity<Parcel>()
-                .HasIndex(p => new { p.SlaDate, p.Status })
-                .HasFilter("[SlaDate] IS NOT NULL");
+                .HasIndex(p => new { p.SlaDate, p.Status });
 
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.ApplyConfigurationsFromAssembly(typeof(AppDbContext).Assembly);
 
-        // ── GLOBAL QUERY FILTERS ──
-        foreach (var entityType in modelBuilder.Model.GetEntityTypes())
-        {
-            // 1. Soft Delete Filter
-            if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
+            // 🛠 ÉP TOÀN BỘ CỘT GUID DÙNG UTF8MB4 (Bỏ rơi ascii_general_ci gây lỗi trên TiDB)
+            foreach (var entityType in modelBuilder.Model.GetEntityTypes())
             {
-                var method = typeof(AppDbContext).GetMethod(nameof(SetSoftDeleteFilter), 
-                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                    .MakeGenericMethod(entityType.ClrType);
-                method.Invoke(this, new object[] { modelBuilder });
-            }
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (property.ClrType == typeof(Guid) || property.ClrType == typeof(Guid?))
+                    {
+                        property.SetColumnType("char(36)");
+                        property.SetCollation("utf8mb4_unicode_ci");
+                    }
+                }
 
-            // 2. Tenant Filter (IMustHaveMerchant)
-            if (typeof(IMustHaveMerchant).IsAssignableFrom(entityType.ClrType))
-            {
-                var method = typeof(AppDbContext).GetMethod(nameof(SetMerchantFilter), 
-                    System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
-                    .MakeGenericMethod(entityType.ClrType);
-                method.Invoke(this, new object[] { modelBuilder });
+                // 1. Soft Delete Filter
+                if (typeof(BaseEntity).IsAssignableFrom(entityType.ClrType))
+                {
+                    var method = typeof(AppDbContext).GetMethod(nameof(SetSoftDeleteFilter), 
+                        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+                        .MakeGenericMethod(entityType.ClrType);
+                    method.Invoke(this, new object[] { modelBuilder });
+                }
+
+                // 2. Tenant Filter (IMustHaveMerchant)
+                if (typeof(IMustHaveMerchant).IsAssignableFrom(entityType.ClrType))
+                {
+                    var method = typeof(AppDbContext).GetMethod(nameof(SetMerchantFilter), 
+                        System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Instance)!
+                        .MakeGenericMethod(entityType.ClrType);
+                    method.Invoke(this, new object[] { modelBuilder });
+                }
             }
         }
-    }
 
     // ──────────────────────────────────────────────
     // 🛠 DYNAMIC FILTER BUILDERS (EVALUATED AT RUNTIME)
@@ -113,4 +125,36 @@ namespace LWMS.Infrastructure.Data
         modelBuilder.Entity<T>().HasQueryFilter(x => 
             _currentUserService.MerchantId == null || x.MerchantId == _currentUserService.MerchantId);
     }
-}}
+
+    public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+    {
+        // 1. Capture changes for Cloud Sync (Outbox Pattern)
+        var entries = ChangeTracker.Entries()
+            .Where(e => e.State is EntityState.Added or EntityState.Modified or EntityState.Deleted)
+            .Where(e => e.Entity is not OutboxMessage && e.Entity is not AuditLog) // Skip meta entities
+            .Where(e => !e.Metadata.IsOwned()) // Skip value objects / owned entities
+            .ToList();
+
+        foreach (var entry in entries)
+        {
+            var outboxMessage = new OutboxMessage
+            {
+                Id = Guid.NewGuid(),
+                EntityName = entry.Entity.GetType().Name,
+                EntityId = entry.Property("Id").CurrentValue?.ToString() ?? "N/A",
+                Action = entry.State.ToString(),
+                DataJson = System.Text.Json.JsonSerializer.Serialize(entry.Entity, new System.Text.Json.JsonSerializerOptions 
+                { 
+                    ReferenceHandler = System.Text.Json.Serialization.ReferenceHandler.IgnoreCycles,
+                    WriteIndented = false 
+                }),
+                CreatedAt = DateTime.UtcNow,
+                IsProcessed = false
+            };
+            OutboxMessages.Add(outboxMessage);
+        }
+
+        return await base.SaveChangesAsync(cancellationToken);
+    }
+}
+}

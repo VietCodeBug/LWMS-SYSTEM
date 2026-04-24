@@ -83,8 +83,6 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddAppAuthorization();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 
-builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddControllers();
 
 // ──────────────────────────────────────────────
@@ -102,6 +100,7 @@ builder.Services.AddRateLimiter(options =>
 
     options.AddFixedWindowLimiter("Public", opt =>
     {
+        options.RejectionStatusCode = StatusCodes.Status429TooManyRequests;
         opt.Window = TimeSpan.FromMinutes(1);
         opt.PermitLimit = 100;
         opt.QueueLimit = 0;
@@ -164,6 +163,30 @@ app.UseRateLimiter(); // 4. Giới hạn tần suất
 // 8. MAP CONTROLLERS
 // ──────────────────────────────────────────────
 app.MapControllers();
-
 app.MapHealthChecks("/health");
-app.Run();public partial class Program { }
+
+// ──────────────────────────────────────────────
+// 9. AUTO DATABASE INITIALIZATION & SEEDING (For TiDB Cloud)
+// ──────────────────────────────────────────────
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    try
+    {
+        var context = services.GetRequiredService<AppDbContext>();
+        var passwordService = services.GetRequiredService<IPasswordService>();
+        // Tự động tạo bảng nếu sài TiDB Cloud mới
+        await context.Database.EnsureCreatedAsync();
+        // Đổ dữ liệu mẫu ban đầu để sài luôn
+        await InitialSeedData.SeedAsync(context, passwordService);
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "Lỗi khi tự động khởi tạo Database trên Cloud.");
+    }
+}
+
+app.Run();
+
+public partial class Program { }

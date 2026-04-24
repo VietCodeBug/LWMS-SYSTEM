@@ -19,4 +19,7 @@ public class BagItem : BaseEntity
 
     /// <summary>Nhân viên kho thực hiện (User Id)</summary>
     public Guid AddedBy { get; set; }
+
+    public Bag Bag { get; set; } = null!;
+    public Parcel Parcel { get; set; } = null!;
 }

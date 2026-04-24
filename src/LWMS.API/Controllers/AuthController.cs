@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace LWMS.API.Controllers;
 
 [Route("api/v1/auth")]
+[Microsoft.AspNetCore.Authorization.AllowAnonymous]
 public class AuthController : ApiControllerBase
 {
     [HttpPost("login")]

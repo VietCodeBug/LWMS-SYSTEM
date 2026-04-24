@@ -15,6 +15,8 @@ namespace LWMS.Domain.Enums
         FailedDelivery,
         Returning,
         Returned,
-        Cancelled
+        Cancelled,
+        Lost,
+        Damaged
     }
 }

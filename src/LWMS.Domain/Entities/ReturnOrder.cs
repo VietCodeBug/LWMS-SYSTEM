@@ -35,4 +35,7 @@ public class ReturnOrder : BaseEntity
 
     /// <summary>Trạng thái: PENDING / IN_TRANSIT / RETURNED / DESTROYED</summary>
     public string Status { get; set; } = "PENDING";
+
+    public Parcel Parcel { get; set; } = null!;
+    public Hub? ReturnHub { get; set; }
 }

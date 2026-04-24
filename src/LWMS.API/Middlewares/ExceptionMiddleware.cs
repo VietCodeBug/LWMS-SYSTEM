@@ -38,7 +38,7 @@ namespace LWMS.API.Middlewares
              var (statusCode, message, errorCode) = exception switch
             {
                 ArgumentException => (HttpStatusCode.BadRequest, exception.Message, "INVALID_ARGUMENT"),
-                FluentValidation.ValidationException => (HttpStatusCode.BadRequest, "Dữ liệu không hợp lệ. Vui lòng kiểm tra lại.", "VALIDATION_ERROR"),
+                FluentValidation.ValidationException vex => (HttpStatusCode.BadRequest, string.Join("; ", vex.Errors.Select(e => e.ErrorMessage)), "VALIDATION_ERROR"),
                 LWMS.Application.Common.Exceptions.BusinessException => (HttpStatusCode.BadRequest, exception.Message, "BUSINESS_ERROR"),
                 LWMS.Application.Common.Behaviors.ForbiddenAccessException => (HttpStatusCode.Forbidden, exception.Message, "FORBIDDEN_ACCESS"),
                 Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException => (HttpStatusCode.Conflict, "Dữ liệu đã được cập nhật bởi một người dùng khác. Vui lòng tải lại trang.", "CONCURRENCY_ERROR"),

@@ -41,4 +41,6 @@ public class User : BaseEntity
 
     /// <summary>Số đơn tối đa shipper xử lý được trong ngày</summary>
     public int? ShipperCapacity { get; set; }
+
+    public Hub? Hub { get; set; }
 }

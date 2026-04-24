@@ -16,11 +16,11 @@ public class ParcelConfiguration : IEntityTypeConfiguration<Parcel>
         builder.ToTable("parcels");
 
         // Relationships
-        builder.HasOne<Merchant>().WithMany().HasForeignKey(p => p.MerchantId).OnDelete(DeleteBehavior.Restrict);
-        builder.HasOne<ServiceType>().WithMany().HasForeignKey(p => p.ServiceTypeId).OnDelete(DeleteBehavior.Restrict);
-        builder.HasOne<Hub>().WithMany().HasForeignKey(p => p.OriginHubId).OnDelete(DeleteBehavior.Restrict);
-        builder.HasOne<Hub>().WithMany().HasForeignKey(p => p.DestHubId).OnDelete(DeleteBehavior.Restrict);
-        builder.HasOne<Hub>().WithMany().HasForeignKey(p => p.CurrentHubId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(p => p.Merchant).WithMany().HasForeignKey(p => p.MerchantId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(p => p.ServiceType).WithMany().HasForeignKey(p => p.ServiceTypeId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(p => p.OriginHub).WithMany().HasForeignKey(p => p.OriginHubId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(p => p.DestHub).WithMany().HasForeignKey(p => p.DestHubId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(p => p.CurrentHub).WithMany().HasForeignKey(p => p.CurrentHubId).OnDelete(DeleteBehavior.Restrict);
 
         // Value Objects
         builder.OwnsOne(p => p.CodAmount, pb => {
@@ -40,7 +40,14 @@ public class ParcelConfiguration : IEntityTypeConfiguration<Parcel>
             ab.Property(a => a.Province).HasColumnName("receiver_province");
         });
 
-        builder.Property(p => p.Weight).HasColumnType("decimal(18,2)");
+        builder.Property(p => p.Weight).HasPrecision(18, 2);
+        builder.Property(p => p.Length).HasPrecision(18, 2);
+        builder.Property(p => p.Width).HasPrecision(18, 2);
+        builder.Property(p => p.Height).HasPrecision(18, 2);
+        builder.Property(p => p.ShippingFee).HasPrecision(18, 2);
+        builder.Property(p => p.InsuranceFee).HasPrecision(18, 2);
+        builder.Property(p => p.TotalFee).HasPrecision(18, 2);
+        builder.Property(p => p.Discount).HasPrecision(18, 2);
         builder.Property(p => p.RowVersion).IsRowVersion();
 
         // Indexes
@@ -52,12 +59,11 @@ public class ParcelConfiguration : IEntityTypeConfiguration<Parcel>
         builder.Property(p => p.Status).HasConversion<string>();
 
         // Enable 2-way navigation for the tracking logs
-        builder.HasMany(p => p.TrackingLogs).WithOne().HasForeignKey(tl => tl.ParcelId).OnDelete(DeleteBehavior.Cascade);
-        builder.HasMany(p => p.BagItems).WithOne().HasForeignKey(bi => bi.ParcelId).OnDelete(DeleteBehavior.Restrict);
-        builder.HasMany(p => p.ShipperAssignments).WithOne().HasForeignKey(sa => sa.ParcelId).OnDelete(DeleteBehavior.Restrict);
-        builder.HasMany(p => p.CodRecords).WithOne().HasForeignKey(cr => cr.ParcelId).OnDelete(DeleteBehavior.Restrict);
-        builder.HasMany(p => p.ParcelLocations).WithOne().HasForeignKey(pl => pl.ParcelId).OnDelete(DeleteBehavior.Cascade);
-        builder.HasOne(p => p.ReturnOrder).WithOne().HasForeignKey<ReturnOrder>(ro => ro.ParcelId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasMany(p => p.TrackingLogs).WithOne(tl => tl.Parcel).HasForeignKey(tl => tl.ParcelId).OnDelete(DeleteBehavior.Cascade);
+        builder.HasMany(p => p.BagItems).WithOne(bi => bi.Parcel).HasForeignKey(bi => bi.ParcelId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasMany(p => p.ShipperAssignments).WithOne(sa => sa.Parcel).HasForeignKey(sa => sa.ParcelId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasMany(p => p.CodRecords).WithOne(cr => cr.Parcel).HasForeignKey(cr => cr.ParcelId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(p => p.ReturnOrder).WithOne(ro => ro.Parcel).HasForeignKey<ReturnOrder>(ro => ro.ParcelId).OnDelete(DeleteBehavior.Restrict);
     }
 }
 
@@ -72,8 +78,6 @@ public class HubConfiguration : IEntityTypeConfiguration<Hub>
         builder.HasIndex(h => h.HubCode).IsUnique();
         builder.Property(h => h.RowVersion).IsRowVersion();
 
-        // 🌱 DỮ LIỆU MẪU (Thay đổi tại InitialSeedData.cs)
-        builder.HasData(InitialSeedData.GetHubs());
     }
 }
 
@@ -82,9 +86,9 @@ public class BagConfiguration : IEntityTypeConfiguration<Bag>
     public void Configure(EntityTypeBuilder<Bag> builder)
     {
         builder.ToTable("bags");
-        builder.HasOne<Hub>().WithMany().HasForeignKey(b => b.FromHubId).OnDelete(DeleteBehavior.Restrict);
-        builder.HasOne<Hub>().WithMany().HasForeignKey(b => b.ToHubId).OnDelete(DeleteBehavior.Restrict);
-        builder.HasMany(b => b.Packages).WithOne().HasForeignKey(bi => bi.BagId).OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(b => b.FromHub).WithMany().HasForeignKey(b => b.FromHubId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(b => b.ToHub).WithMany().HasForeignKey(b => b.ToHubId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasMany(b => b.Packages).WithOne(bi => bi.Bag).HasForeignKey(bi => bi.BagId).OnDelete(DeleteBehavior.Cascade);
 
         builder.Property(b => b.Status).HasConversion<string>();
         builder.Property(b => b.RowVersion).IsRowVersion();
@@ -105,7 +109,10 @@ public class RackConfiguration : IEntityTypeConfiguration<Rack>
     public void Configure(EntityTypeBuilder<Rack> builder)
     {
         builder.ToTable("racks");
-        builder.HasOne<Hub>().WithMany().HasForeignKey(r => r.HubId).OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(r => r.Hub)
+               .WithMany(h => h.Racks)
+               .HasForeignKey(r => r.HubId)
+               .OnDelete(DeleteBehavior.Cascade);
         builder.Ignore(r => r.IsFull);
     }
 }
@@ -115,7 +122,8 @@ public class ParcelLocationConfiguration : IEntityTypeConfiguration<ParcelLocati
     public void Configure(EntityTypeBuilder<ParcelLocation> builder)
     {
         builder.ToTable("parcel_locations");
-        builder.HasOne<Rack>().WithMany().HasForeignKey(pl => pl.RackId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(pl => pl.Parcel).WithMany(p => p.ParcelLocations).HasForeignKey(pl => pl.ParcelId).OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(pl => pl.Rack).WithMany(r => r.ParcelLocations).HasForeignKey(pl => pl.RackId).OnDelete(DeleteBehavior.Restrict);
     }
 }
 
@@ -127,14 +135,15 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.ToTable("users");
-        builder.HasOne<Hub>().WithMany().HasForeignKey(u => u.HubId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(u => u.Hub)
+               .WithMany(h => h.Users)
+               .HasForeignKey(u => u.HubId)
+               .OnDelete(DeleteBehavior.Restrict);
         builder.HasIndex(u => u.EmployeeCode).IsUnique();
 
         builder.Property(u => u.Role).HasConversion<string>();
         builder.Property(u => u.RowVersion).IsRowVersion();
 
-        // 🌱 DỮ LIỆU MẪU (Thay đổi tại InitialSeedData.cs)
-        builder.HasData(InitialSeedData.GetUsers());
     }
 }
 
@@ -145,8 +154,8 @@ public class MerchantConfiguration : IEntityTypeConfiguration<Merchant>
         builder.ToTable("merchants");
         builder.HasIndex(m => m.MerchantCode).IsUnique();
 
-        // 🌱 DỮ LIỆU MẪU (Thay đổi tại InitialSeedData.cs)
-        builder.HasData(InitialSeedData.GetMerchants());
+
+        builder.Property(m => m.BaseFeeMultiplier).HasPrecision(18, 2);
     }
 }
 
@@ -158,7 +167,7 @@ public class TrackingLogConfiguration : IEntityTypeConfiguration<TrackingLog>
     public void Configure(EntityTypeBuilder<TrackingLog> builder)
     {
         builder.ToTable("tracking_logs");
-        builder.HasOne<Hub>().WithMany().HasForeignKey(tl => tl.HubId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(tl => tl.Hub).WithMany().HasForeignKey(tl => tl.HubId).OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(tl => new { tl.ParcelId, tl.CreatedTime });
         
@@ -172,8 +181,8 @@ public class ShipperAssignmentConfiguration : IEntityTypeConfiguration<ShipperAs
     public void Configure(EntityTypeBuilder<ShipperAssignment> builder)
     {
         builder.ToTable("shipper_assignments");
-        builder.HasOne<User>().WithMany().HasForeignKey(sa => sa.ShipperId).OnDelete(DeleteBehavior.Restrict);
-        builder.HasOne<Hub>().WithMany().HasForeignKey(sa => sa.HubId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(sa => sa.Shipper).WithMany().HasForeignKey(sa => sa.ShipperId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(sa => sa.Hub).WithMany().HasForeignKey(sa => sa.HubId).OnDelete(DeleteBehavior.Restrict);
 
         builder.HasIndex(sa => new { sa.ShipperId, sa.Status });
     }
@@ -196,8 +205,8 @@ public class CodSettlementConfiguration : IEntityTypeConfiguration<CodSettlement
     public void Configure(EntityTypeBuilder<CodSettlement> builder)
     {
         builder.ToTable("cod_settlements");
-        builder.HasOne<Merchant>().WithMany().HasForeignKey(cs => cs.MerchantId).OnDelete(DeleteBehavior.Restrict);
-        builder.HasOne<User>().WithMany().HasForeignKey(cs => cs.ShipperId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(cs => cs.Merchant).WithMany().HasForeignKey(cs => cs.MerchantId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(cs => cs.Shipper).WithMany().HasForeignKey(cs => cs.ShipperId).OnDelete(DeleteBehavior.Restrict);
         builder.Property(cs => cs.TotalCollected).HasColumnType("decimal(18,2)");
         builder.Property(cs => cs.TotalSubmitted).HasColumnType("decimal(18,2)");
         builder.Property(cs => cs.TotalSettled).HasColumnType("decimal(18,2)");
@@ -210,7 +219,7 @@ public class CodSettlementItemConfiguration : IEntityTypeConfiguration<CodSettle
     public void Configure(EntityTypeBuilder<CodSettlementItem> builder)
     {
         builder.ToTable("cod_settlement_items");
-        builder.HasOne<CodSettlement>().WithMany().HasForeignKey(csi => csi.SettlementId).OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(csi => csi.Settlement).WithMany(s => s.Items).HasForeignKey(csi => csi.SettlementId).OnDelete(DeleteBehavior.Cascade);
         builder.Property(csi => csi.Amount).HasColumnType("decimal(18,2)");
     }
 }
@@ -220,7 +229,7 @@ public class PickupRequestConfiguration : IEntityTypeConfiguration<PickupRequest
     public void Configure(EntityTypeBuilder<PickupRequest> builder)
     {
         builder.ToTable("pickup_requests");
-        builder.HasOne<Merchant>().WithMany().HasForeignKey(pr => pr.MerchantId).OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(pr => pr.Merchant).WithMany().HasForeignKey(pr => pr.MerchantId).OnDelete(DeleteBehavior.Cascade);
     }
 }
 
@@ -229,7 +238,7 @@ public class ReturnOrderConfiguration : IEntityTypeConfiguration<ReturnOrder>
     public void Configure(EntityTypeBuilder<ReturnOrder> builder)
     {
         builder.ToTable("return_orders");
-        builder.HasOne<Hub>().WithMany().HasForeignKey(ro => ro.ReturnHubId).OnDelete(DeleteBehavior.Restrict);
+        builder.HasOne(ro => ro.ReturnHub).WithMany().HasForeignKey(ro => ro.ReturnHubId).OnDelete(DeleteBehavior.Restrict);
     }
 }
 
@@ -240,8 +249,8 @@ public class FeeConfigConfiguration : IEntityTypeConfiguration<FeeConfig>
         builder.ToTable("fee_configs");
         
         // Nối dây Foreign Key cho ServiceType và Zone
-        builder.HasOne<ServiceType>().WithMany().HasForeignKey(f => f.ServiceTypeId).OnDelete(DeleteBehavior.Cascade);
-        builder.HasOne<Zone>().WithMany().HasForeignKey(f => f.ZoneId).OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(f => f.ServiceType).WithMany().HasForeignKey(f => f.ServiceTypeId).OnDelete(DeleteBehavior.Cascade);
+        builder.HasOne(f => f.Zone).WithMany().HasForeignKey(f => f.ZoneId).OnDelete(DeleteBehavior.Cascade);
 
         builder.HasIndex(f => new { f.ZoneId, f.ServiceTypeId });
 
@@ -263,8 +272,6 @@ public class ServiceTypeConfiguration : IEntityTypeConfiguration<ServiceType>
         builder.ToTable("service_types");
         builder.HasIndex(s => s.Code).IsUnique();
 
-        // 🌱 DỮ LIỆU MẪU (Thay đổi tại InitialSeedData.cs)
-        builder.HasData(InitialSeedData.GetServiceTypes());
     }
 }
 

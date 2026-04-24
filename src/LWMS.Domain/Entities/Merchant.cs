@@ -10,5 +10,6 @@ public class Merchant :BaseEntity
     public Guid? DefaultHubId {get;set;}
     public string ApiKey {get;set;} = string.Empty;
     public bool IsActive {get;set;} = true;
+    public decimal BaseFeeMultiplier { get; set; } = 1.0m;
 
 }

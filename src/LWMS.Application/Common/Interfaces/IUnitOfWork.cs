@@ -13,7 +13,11 @@ public interface IUnitOfWork
     IRepository<BagItem> BagItems { get; }
     IRepository<ShipperAssignment> ShipperAssignments { get; }
     IRepository<CodRecord> CodRecords { get; }
+    IRepository<CodSettlement> CodSettlements { get; }
+    IRepository<CodSettlementItem> CodSettlementItems { get; }
     IRepository<ReturnOrder> ReturnOrders { get; }
     IRepository<RefreshToken> RefreshTokens { get; }
+    IRackRepository Racks { get; }
+    IParcelLocationRepository ParcelLocations { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }
